@@ -396,6 +396,17 @@
         align-items: center;
       }
 
+      .div-block-9 {
+        max-height: none !important;
+        overflow: visible;
+      }
+
+      .nav-mobile-panel .bot.clipping-text.nav {
+        height: auto;
+        min-height: auto;
+        max-height: none;
+      }
+
       .nav-submobile__link {
         min-height: 44px;
         display: flex;
@@ -1205,7 +1216,7 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
               if (!nav) return;
 
               const navLinks = document.querySelectorAll(".nav-link");
-              const whiteSections = document.querySelectorAll(".bg-white");
+              const whiteSections = document.querySelectorAll(".bg-white, .h-slide:nth-child(odd), .last-section");
               const footer = document.querySelector(".footer");
               const followSection = document.querySelector(".home-hero");
               const horizontalSection = document.querySelector(
@@ -1224,6 +1235,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
               const arrowSvgs = document.querySelectorAll(
                 ".navigation .button-small__arrow svg *"
               );
+              const burgerEl = document.querySelector(".nav-burger");
+              const burgerPolylines = document.querySelectorAll(".nav-burger svg polyline");
 
               const path = window.location.pathname.replace(/\/$/, ""); // enlève le trailing slash
               const isHome =
@@ -1299,72 +1312,29 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
                   onWhite && !footerVisible
                 );
 
+                const animDur = { duration: 0.25, ease: "power2.out" };
+
                 if (footerVisible) {
-                  gsap.to(navLinks, {
-                    color: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(logoSvgs, {
-                    fill: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(arrowSvgs, {
-                    fill: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-
-                  gsap.to(btnBlocks, {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
+                  gsap.to(navLinks, { color: "#fff", ...animDur });
+                  gsap.to(logoSvgs, { fill: "#fff", ...animDur });
+                  gsap.to(arrowSvgs, { fill: "#fff", ...animDur });
+                  gsap.to(btnBlocks, { backgroundColor: "rgba(255,255,255,0.1)", ...animDur });
+                  if (burgerEl) gsap.to(burgerEl, { color: "#fff", ...animDur });
+                  gsap.to(burgerPolylines, { stroke: "#fff", ...animDur });
                 } else if (onWhite) {
-                  gsap.to(navLinks, {
-                    color: "#000",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(logoSvgs, {
-                    fill: "#000",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(arrowSvgs, {
-                    fill: "#000",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-
-                  gsap.to(btnBlocks, {
-                    backgroundColor: "rgba(255, 255, 255, 0.15)",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
+                  gsap.to(navLinks, { color: "#000", ...animDur });
+                  gsap.to(logoSvgs, { fill: "#000", ...animDur });
+                  gsap.to(arrowSvgs, { fill: "#000", ...animDur });
+                  gsap.to(btnBlocks, { backgroundColor: "rgba(0,0,0,0.08)", ...animDur });
+                  if (burgerEl) gsap.to(burgerEl, { color: "#000", ...animDur });
+                  gsap.to(burgerPolylines, { stroke: "#000", ...animDur });
                 } else {
-                  gsap.to(navLinks, {
-                    color: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(logoSvgs, {
-                    fill: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-                  gsap.to(arrowSvgs, {
-                    fill: "#fff",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
-
-                  gsap.to(btnBlocks, {
-                    backgroundColor: "rgba(255, 255, 255, 0.1)",
-                    duration: 0.25,
-                    ease: "power2.out",
-                  });
+                  gsap.to(navLinks, { color: "#fff", ...animDur });
+                  gsap.to(logoSvgs, { fill: "#fff", ...animDur });
+                  gsap.to(arrowSvgs, { fill: "#fff", ...animDur });
+                  gsap.to(btnBlocks, { backgroundColor: "rgba(255,255,255,0.1)", ...animDur });
+                  if (burgerEl) gsap.to(burgerEl, { color: "#fff", ...animDur });
+                  gsap.to(burgerPolylines, { stroke: "#fff", ...animDur });
                 }
               }
 
@@ -1637,8 +1607,12 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
                       panel.classList.remove("has-submenu-open");
                     }
                     animateMobileLinksOut();
+                    gsap.set(burgerPolylines, { clearProps: "stroke" });
+                    if (burgerEl) gsap.set(burgerEl, { clearProps: "color" });
                     updateNavColors();
                   } else {
+                    gsap.set(burgerPolylines, { stroke: "#000" });
+                    if (burgerEl) gsap.set(burgerEl, { color: "#000" });
                     animateMobileLinksIn();
                   }
 
@@ -1687,7 +1661,6 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
 
           .nav-burger {
             display: none;
-            /* caché sur desktop, visible en mobile */
             border: none;
             padding: 0;
             background: none;
@@ -1695,6 +1668,7 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
             outline: none;
             position: relative;
             z-index: 1100;
+            transition: color 0.3s ease;
           }
 
           .nav-burger svg {
@@ -1714,6 +1688,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
             transform: translateY(-100%);
             transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
             z-index: 900;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
           }
 
           .nav-mobile-panel.is-open {
@@ -1761,17 +1737,52 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
             color: #000000;
           }
 
-          /* 3) Menu mobile ouvert → BURGER ORANGE */
+          .navigation.is-on-white:not(.menu-open) .nav--logo .logo svg,
+          .navigation.is-on-white:not(.menu-open) .nav--logo .logo svg * {
+            fill: #000 !important;
+            color: #000 !important;
+          }
+
+          /* 3) Menu mobile open → black burger (white panel bg) */
           .navigation.menu-open .nav-burger {
-            color: #ffffff;
+            color: #000000 !important;
           }
 
           .navigation.menu-open .nav-burger svg polyline {
-            stroke: currentColor;
+            stroke: #000 !important;
           }
 
           /* Couleur du logo (pas du burger) quand menu open */
-          .navigation.menu-open .nav-logo svg * {
+          .navigation.menu-open .nav--logo .logo svg,
+          .navigation.menu-open .nav--logo .logo svg * {
+            fill: #000 !important;
+            color: #000 !important;
+          }
+
+          /* === MOBILE NAV PANEL TEXT VISIBILITY === */
+          .nav-mobile-panel .clipping-text,
+          .nav-mobile-panel .clipping-text *,
+          .nav-mobile-panel .bot.clipping-text.nav,
+          .nav-mobile-panel .bot.clipping-text.nav * {
+            color: #000 !important;
+            -webkit-text-fill-color: #000 !important;
+          }
+
+          .nav-mobile-panel .claim-s,
+          .nav-mobile-panel .nav-tag,
+          .nav-mobile-panel .footer-mobile a,
+          .nav-mobile-panel .link-block,
+          .nav-mobile-panel .nav-tag.color-white {
+            color: #000 !important;
+            -webkit-text-fill-color: #000 !important;
+          }
+
+          .nav-mobile-panel .h-line-mobile {
+            background-color: rgba(0, 0, 0, 0.15) !important;
+            mix-blend-mode: normal !important;
+          }
+
+          .nav-mobile-panel .logo-mobile-svg path {
             fill: #000 !important;
           }
         </style>
