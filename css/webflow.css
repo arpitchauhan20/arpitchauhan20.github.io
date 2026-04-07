@@ -4568,10 +4568,12 @@ strong {
   grid-column-gap: 80px;
   grid-row-gap: 80px;
   flex-flow: column;
-  margin-top: 9.722vw;
+  margin-top: 2vw;
   margin-bottom: 6.944vw;
   padding-left: 9.583vw;
   padding-right: 9.583vw;
+  background-color: var(--black);
+  color: var(--white);
   display: flex;
 }
 
