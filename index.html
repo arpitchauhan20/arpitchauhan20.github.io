@@ -82,7 +82,7 @@
     .bg-white .h-line.color-blue {
       background-color: #000 !important;
     }
-    
+
     .about__expertise-section .h-line.color-blue {
       background-color: #fff !important;
     }
@@ -211,6 +211,12 @@
     .about__expertise-section {
       position: relative;
       z-index: 1;
+      margin-bottom: 0 !important;
+    }
+
+    /* Remove white gap between dark expertise section and footer */
+    .about__expertise-section+.container {
+      display: none !important;
     }
 
     /* Ensure the team value-img elements are visible */
@@ -302,6 +308,7 @@
        (matches TIWIS inline CSS behavior)
        ============================================= */
     @media screen and (max-width: 991px) {
+
       .nav--item,
       .nav--button,
       .nav--buttons {
@@ -331,7 +338,7 @@
         margin-bottom: 0;
       }
 
-      .about__expertise-section + .container {
+      .about__expertise-section+.container {
         display: none;
       }
 
@@ -366,6 +373,7 @@
        sections that don't exist in the original TIWIS.
        ============================================= */
     @media screen and (max-width: 479px) {
+
       /* Fix footer for mobile address-bar resize */
       .div-block-8 {
         height: auto;
@@ -473,7 +481,7 @@
       }
 
       /* Hide the trailing h-line container inside bg-white after the dark expertise section */
-      .about__expertise-section + .container {
+      .about__expertise-section+.container {
         display: none;
       }
 
@@ -671,6 +679,7 @@
        TOUCH DEVICES — smooth scroll carousels
        ============================================= */
     @media (hover: none) and (pointer: coarse) {
+
       .value-list,
       .use-case__list,
       .expertise__list,
@@ -2066,7 +2075,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           Building Intelligent Systems from Data.
         </p>
         <p class="claim-s" style="opacity: 0.8; max-width: 600px;">
-          Data Scientist • ML Engineer • Analytics Specialist<br /><span style="opacity: 0.7;">Turning complex data into actionable insights.</span>
+          Data Scientist • ML Engineer • Analytics Specialist<br /><span style="opacity: 0.7;">Turning complex data into
+            actionable insights.</span>
         </p>
       </div>
       <div data-wf-target='[[["68f77e4ac7ca6bd68b326cb4","6efb697d-d0ab-36b3-30f7-aca4aff8ec9f"],[]]]'
@@ -2091,7 +2101,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           </div>
           <div id="w-node-f795206b-cfea-47c2-42e7-3d1c4abaf737-8b326cb4">
             <p class="manifesto">
-              Data is only valuable if it drives action. I combine machine learning, advanced analytics, and strategic thinking to build systems that automate decisions and generate sustainable growth.
+              Data is only valuable if it drives action. I combine machine learning, advanced analytics, and strategic
+              thinking to build systems that automate decisions and generate sustainable growth.
             </p>
           </div>
         </div>
@@ -2116,7 +2127,9 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <div class="h-slide">
             <div class="top">
               <p class="claim-s split-timeline">
-                Designing and training custom predictive models,<br />deploying them in production environments,<br />and integrating intelligent algorithms<br />to solve complex automation<br />and pattern recognition challenges.<br />
+                Designing and training custom predictive models,<br />deploying them in production
+                environments,<br />and integrating intelligent algorithms<br />to solve complex automation<br />and
+                pattern recognition challenges.<br />
               </p>
               <div class="div-hide">
                 <div class="h-arrow w-embed">
@@ -2138,7 +2151,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <div class="h-slide">
             <div class="top">
               <p class="claim-s split-horizontal">
-                Transforming raw datasets into intuitive,<br />interactive dashboards that reveal<br />hidden trends and support<br />data-driven storytelling for<br />non-technical stakeholders.
+                Transforming raw datasets into intuitive,<br />interactive dashboards that reveal<br />hidden trends and
+                support<br />data-driven storytelling for<br />non-technical stakeholders.
               </p>
               <div class="div-hide">
                 <div class="h-arrow w-embed">
@@ -2162,7 +2176,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <div class="h-slide">
             <div class="top">
               <p class="claim-s split-horizontal">
-                Translating complex analytical findings<br />into strategic business recommendations,<br />optimizing operations, predicting <br />trends, and identifying new <br />revenue opportunities using data.
+                Translating complex analytical findings<br />into strategic business recommendations,<br />optimizing
+                operations, predicting <br />trends, and identifying new <br />revenue opportunities using data.
               </p>
               <div class="div-hide">
                 <div class="h-arrow w-embed">
@@ -2630,7 +2645,8 @@ tl.to({}, {
               <div class="value-text">
                 <h4>Impact Over<br />Accuracy</h4>
                 <p>
-                  A 99% accurate model is useless if it doesn't solve the business problem. I focus on actionable insights and real-world ROI, not just academic metrics.
+                  A 99% accurate model is useless if it doesn't solve the business problem. I focus on actionable
+                  insights and real-world ROI, not just academic metrics.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2648,7 +2664,8 @@ tl.to({}, {
               <div class="value-text">
                 <h4>End-to-End<br />Ownership</h4>
                 <p>
-                  From data collection and cleaning to model deployment and monitoring, I take full responsibility for the entire ML pipeline.
+                  From data collection and cleaning to model deployment and monitoring, I take full responsibility for
+                  the entire ML pipeline.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2666,7 +2683,8 @@ tl.to({}, {
               <div class="value-text">
                 <h4>Real-World<br />Problem Solving</h4>
                 <p>
-                  Data isn't just numbers; it represents real behavior. I apply complex algorithms to solve tangible problems and optimize actual workflows.
+                  Data isn't just numbers; it represents real behavior. I apply complex algorithms to solve tangible
+                  problems and optimize actual workflows.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2684,7 +2702,8 @@ tl.to({}, {
               <div class="value-text">
                 <h4>Clear<br />Communication</h4>
                 <p>
-                  AI can seem like a black box. I ensure that my models are interpretable and my findings are communicated clearly to all stakeholders, without unnecessary jargon.
+                  AI can seem like a black box. I ensure that my models are interpretable and my findings are
+                  communicated clearly to all stakeholders, without unnecessary jargon.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2784,7 +2803,8 @@ tl.to({}, {
             <a href="#projects" class="use-case__block w-inline-block">
               <div class="use-case__img-container">
                 <div class="use-case__img-mask">
-                  <img src="assets/superhead-cover.jpg" loading="lazy" decoding="async" alt="" sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
+                  <img src="assets/superhead-cover.jpg" loading="lazy" decoding="async" alt=""
+                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
                         assets/superhead-cover-p-800.jpg   800w,
                         assets/superhead-cover-p-2000.jpg 2000w,
                         assets/superhead-cover.jpg        3268w
@@ -2870,7 +2890,8 @@ tl.to({}, {
             <a href="#projects" class="use-case__block w-inline-block">
               <div class="use-case__img-container">
                 <div class="use-case__img-mask">
-                  <img src="assets/rectangle-6.png" loading="lazy" decoding="async" alt="" sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
+                  <img src="assets/rectangle-6.png" loading="lazy" decoding="async" alt=""
+                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
                         assets/rectangle-6-p-800.png 800w,
                         assets/rectangle-6.png       906w
                       " class="use-case__img-item" />
@@ -2953,7 +2974,8 @@ tl.to({}, {
             <a href="#projects" class="use-case__block w-inline-block">
               <div class="use-case__img-container">
                 <div class="use-case__img-mask">
-                  <img src="assets/lumaravision.png" loading="lazy" decoding="async" alt="" class="use-case__img-item" />
+                  <img src="assets/lumaravision.png" loading="lazy" decoding="async" alt=""
+                    class="use-case__img-item" />
                 </div>
               </div>
               <div class="use-case__block-top">
@@ -3033,153 +3055,162 @@ tl.to({}, {
       </div>
 
 
-  <div class="bg-white">
+      <div class="bg-white">
 
-    <div class="center-text">
-      <div class="h-line color-blue"></div>
-      <p class="manifesto clipping-text about-p color-black">
-        A diverse skill set combined to provide end-to-end data solutions, forming an
-        ultra-efficient analytical approach.
-      </p>
-    </div>
-    <div class="section-values">
-      <div class="container color-black">
-        <div class="value-list">
-          <div class="value-item top-align">
-            <div class="value-img__cont">
-              <div class="value-img__mask">
-                <img src="assets/david-guinehut.png" loading="lazy" decoding="async" alt="" class="value-img" />
+        <div class="center-text">
+          <div class="h-line color-blue"></div>
+          <p class="manifesto clipping-text about-p color-black">
+            A diverse skill set combined to provide end-to-end data solutions, forming an
+            ultra-efficient analytical approach.
+          </p>
+        </div>
+        <div class="section-values">
+          <div class="container color-black">
+            <div class="value-list">
+              <div class="value-item top-align">
+                <div class="value-img__cont">
+                  <div class="value-img__mask">
+                    <img src="assets/david-guinehut.png" loading="lazy" decoding="async" alt="" class="value-img" />
+                  </div>
+                </div>
+                <div class="value-text">
+                  <div class="value-heading">
+                    <h4>Data Science &amp; ML</h4>
+                    <div class="nav-tag">Core Expertise</div>
+                  </div>
+                  <p>
+                    Python, SQL, Scikit-learn, TensorFlow, PyTorch. Expertise in building, training, and optimizing
+                    machine learning models for classification, regression, and clustering.
+                  </p>
+                </div>
+                <div class="value-item__line top"></div>
+                <div class="value-item__line bot"></div>
+              </div>
+              <div class="value-divider"></div>
+              <div class="value-item top-align">
+                <div class="value-img__cont">
+                  <div class="value-img__mask">
+                    <img src="assets/group-19.png" loading="lazy" decoding="async" alt="" class="value-img" />
+                  </div>
+                </div>
+                <div class="value-text">
+                  <div class="value-heading">
+                    <h4>Data Engineering</h4>
+                    <div class="nav-tag">Infrastructure &amp; Pipelines</div>
+                  </div>
+                  <p>
+                    Pandas, PySpark, Airflow, dbt, Snowflake. Designing robust data pipelines to extract, transform, and
+                    load (ETL) data from various sources into analytical data warehouses.
+                  </p>
+                </div>
+                <div class="value-item__line top"></div>
+                <div class="value-item__line bot"></div>
+              </div>
+              <div class="value-divider"></div>
+              <div class="value-item top-align">
+                <div class="value-img__cont">
+                  <div class="value-img__mask">
+                    <img src="assets/pierre-brocart.png" loading="lazy" decoding="async" alt="" class="value-img" />
+                  </div>
+                </div>
+                <div class="value-text">
+                  <div class="value-heading">
+                    <h4>Business Analytics</h4>
+                    <div class="nav-tag">Insights &amp; Visualization</div>
+                  </div>
+                  <p>
+                    Tableau, PowerBI, Statistical Analysis, A/B Testing. Translating complex model outputs into
+                    accessible, interactive dashboards that drive strategic corporate decisions.
+                  </p>
+                </div>
+                <div class="value-item__line top"></div>
+                <div class="value-item__line bot"></div>
               </div>
             </div>
-            <div class="value-text">
-              <div class="value-heading">
-                <h4>Data Science &amp; ML</h4>
-                <div class="nav-tag">Core Expertise</div>
-              </div>
-              <p>
-                Python, SQL, Scikit-learn, TensorFlow, PyTorch. Expertise in building, training, and optimizing machine learning models for classification, regression, and clustering.
-              </p>
-            </div>
-            <div class="value-item__line top"></div>
-            <div class="value-item__line bot"></div>
-          </div>
-          <div class="value-divider"></div>
-          <div class="value-item top-align">
-            <div class="value-img__cont">
-              <div class="value-img__mask">
-                <img src="assets/group-19.png" loading="lazy" decoding="async" alt="" class="value-img" />
-              </div>
-            </div>
-            <div class="value-text">
-              <div class="value-heading">
-                <h4>Data Engineering</h4>
-                <div class="nav-tag">Infrastructure &amp; Pipelines</div>
-              </div>
-              <p>
-                Pandas, PySpark, Airflow, dbt, Snowflake. Designing robust data pipelines to extract, transform, and load (ETL) data from various sources into analytical data warehouses.
-              </p>
-            </div>
-            <div class="value-item__line top"></div>
-            <div class="value-item__line bot"></div>
-          </div>
-          <div class="value-divider"></div>
-          <div class="value-item top-align">
-            <div class="value-img__cont">
-              <div class="value-img__mask">
-                <img src="assets/pierre-brocart.png" loading="lazy" decoding="async" alt="" class="value-img" />
-              </div>
-            </div>
-            <div class="value-text">
-              <div class="value-heading">
-                <h4>Business Analytics</h4>
-                <div class="nav-tag">Insights &amp; Visualization</div>
-              </div>
-              <p>
-                Tableau, PowerBI, Statistical Analysis, A/B Testing. Translating complex model outputs into accessible, interactive dashboards that drive strategic corporate decisions.
-              </p>
-            </div>
-            <div class="value-item__line top"></div>
-            <div class="value-item__line bot"></div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-  <div class="about__expertise-section">
-    <div class="about__expertise-container">
-      <div class="about__expertise-mask">
-        <div class="h-line color-blue"></div>
-        <div class="about-expertise__content">
-          <div class="about-expertise__svg w-embed">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217 217" fill="none">
-              <path d="M216.25 0.75V108.189L108.189 216.25H0.75V0.75H216.25Z" stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-              <rect x="1.06066" y="108.5" width="151.942" height="151.942" transform="rotate(-45 1.06066 108.5)"
-                stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-              <path d="M108.701 214.678L107.392 107.388L214.682 108.696L108.701 214.678Z" stroke="#ffffff"
-                stroke-width="1.5" stroke-miterlimit="10" />
-            </svg>
-            <style>
-              .about-expertise__svg {
-                width: 15.069vw;
-                height: auto;
-                max-width: 217px;
-              }
+      <div class="about__expertise-section">
+        <div class="about__expertise-container">
+          <div class="about__expertise-mask">
+            <div class="h-line color-blue"></div>
+            <div class="about-expertise__content">
+              <div class="about-expertise__svg w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217 217" fill="none">
+                  <path d="M216.25 0.75V108.189L108.189 216.25H0.75V0.75H216.25Z" stroke="#ffffff" stroke-width="1.5"
+                    stroke-miterlimit="10" />
+                  <rect x="1.06066" y="108.5" width="151.942" height="151.942" transform="rotate(-45 1.06066 108.5)"
+                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                  <path d="M108.701 214.678L107.392 107.388L214.682 108.696L108.701 214.678Z" stroke="#ffffff"
+                    stroke-width="1.5" stroke-miterlimit="10" />
+                </svg>
+                <style>
+                  .about-expertise__svg {
+                    width: 15.069vw;
+                    height: auto;
+                    max-width: 217px;
+                  }
 
-              @media (max-width: 479px) {
-                .about-expertise__svg {
-                  width: 30vw;
-                  max-width: 160px;
-                }
-              }
-            </style>
-          </div>
-          <div class="about-expertise__text-cont">
-            <div class="about-expertise__title">
-              <h5>I am a<br />Doer</h5>
-              <p class="claim-s">
-                Data &gt; Insight &gt; Action: I know how to step back and analyze the big picture before building end-to-end predictive and analytical solutions.
-              </p>
+                  @media (max-width: 479px) {
+                    .about-expertise__svg {
+                      width: 30vw;
+                      max-width: 160px;
+                    }
+                  }
+                </style>
+              </div>
+              <div class="about-expertise__text-cont">
+                <div class="about-expertise__title">
+                  <h5>I am a<br />Doer</h5>
+                  <p class="claim-s">
+                    Data &gt; Insight &gt; Action: I know how to step back and analyze the big picture before building
+                    end-to-end predictive and analytical solutions.
+                  </p>
+                </div>
+                <p class="about-expertise__text">
+                  I act as your analytical co-pilot:<br />I challenge assumptions with data, build robust models, and
+                  ensure that every algorithm transforms the business.
+                </p>
+              </div>
             </div>
-            <p class="about-expertise__text">
-              I act as your analytical co-pilot:<br />I challenge assumptions with data, build robust models, and ensure that every algorithm transforms the business.
-            </p>
+          </div>
+        </div>
+        <div class="about__expertise-container">
+          <div class="about__expertise-mask">
+            <div class="h-line color-blue"></div>
+            <div class="about-expertise__content">
+              <div class="about-expertise__svg w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 214" fill="none">
+                  <path d="M0.750003 0.750061L0.75 212.739L216.495 212.739L216.495 0.750064L0.750003 0.750061Z"
+                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                  <path d="M216.75 212.739C97.4426 212.739 0.75 117.837 0.75 0.738525" stroke="#ffffff"
+                    stroke-width="1.5" stroke-miterlimit="10" />
+                  <path
+                    d="M216.17 0.750124C216.17 117.782 119.737 212.63 0.75 212.63C0.750001 95.5984 97.1829 0.750123 216.17 0.750124Z"
+                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                </svg>
+              </div>
+              <div class="about-expertise__text-cont">
+                <div class="about-expertise__title">
+                  <h5>Data centric,<br />business driven</h5>
+                  <p class="claim-s">
+                    Everything starts with understanding the business need. From there, I conduct exploratory data
+                    analysis and rigorous modeling to ensure the success of your data products.
+                  </p>
+                </div>
+                <p class="about-expertise__text">
+                  You can't find insights by just staring at raw code. Models are built through understanding real-world
+                  constraints.<br /><br />Testing hypotheses quickly, iterating on algorithms, and deploying scalable
+                  MVPs: this is the key to creating value and continuously improving predictive accuracy.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="about__expertise-container">
-      <div class="about__expertise-mask">
-        <div class="h-line color-blue"></div>
-        <div class="about-expertise__content">
-          <div class="about-expertise__svg w-embed">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 214" fill="none">
-              <path d="M0.750003 0.750061L0.75 212.739L216.495 212.739L216.495 0.750064L0.750003 0.750061Z"
-                stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-              <path d="M216.75 212.739C97.4426 212.739 0.75 117.837 0.75 0.738525" stroke="#ffffff" stroke-width="1.5"
-                stroke-miterlimit="10" />
-              <path
-                d="M216.17 0.750124C216.17 117.782 119.737 212.63 0.75 212.63C0.750001 95.5984 97.1829 0.750123 216.17 0.750124Z"
-                stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-            </svg>
-          </div>
-          <div class="about-expertise__text-cont">
-            <div class="about-expertise__title">
-              <h5>Data centric,<br />business driven</h5>
-              <p class="claim-s">
-                Everything starts with understanding the business need. From there, I conduct exploratory data analysis and rigorous modeling to ensure the success of your data products.
-              </p>
-            </div>
-            <p class="about-expertise__text">
-              You can't find insights by just staring at raw code. Models are built through understanding real-world constraints.<br /><br />Testing hypotheses quickly, iterating on algorithms, and deploying scalable MVPs: this is the key to creating value and continuously improving predictive accuracy.
-            </p>
-          </div>
-        </div>
+      <div class="container">
+        <div class="h-line"></div>
       </div>
-    </div>
-  </div>
-  <div class="container">
-    <div class="h-line"></div>
-  </div>
     </div>
   </section>
 
