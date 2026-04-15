@@ -1745,6 +1745,34 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           .nav-mobile-panel .logo-mobile-svg path {
             fill: #000 !important;
           }
+
+          .nav-mobile__submenu {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100dvh;
+            transform: translateX(100%);
+            /* caché à droite */
+            transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 950;
+            /* au-dessus du panel, sous le burger */
+          }
+
+          /* quand un sous-menu est ouvert */
+          .nav-mobile__submenu.is-open {
+            transform: translateX(0);
+          }
+
+          /* optionnel : petit recul du panel de base quand un sous-menu est ouvert */
+          .nav-mobile-panel.has-submenu-open {
+            transform: translateY(0) translateX(-8%);
+          }
+
+          @media (min-width: 992px) {
+            .nav-mobile__submenu {
+              display: none;
+            }
+          }
         </style>
       </div>
     </div>
@@ -1790,30 +1818,30 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
         <div class="h-line-mobile on-mobile clipping-item"></div>
         <div class="right right-align">
           <div class="footer-mobile">
-            <a data-w-id="77b08b28-eab5-8f18-46ff-4198c787495d" href="#https://www.linkedin.com/in/jsprunet/"
+            <a data-w-id="77b08b28-eab5-8f18-46ff-4198c787495d" href="arpitchauhan2028@gmail.com"
               class="link-block w-inline-block">
               <div class="div-hide">
                 <div class="nav-tag color-white">Linkedin</div>
                 <div class="nav-tag hide color-white">Linkedin</div>
               </div>
-            </a><a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874956" href="mailto:contact@arpitchauhan.com"
+            </a><a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874956" href="arpitchauhan2028@gmail.com"
               class="link-block w-inline-block">
               <div class="div-hide">
-                <div class="nav-tag color-white">contact@arpitchauhan.com</div>
+                <div class="nav-tag color-white">arpitchauhan2028@gmail.com</div>
                 <div class="nav-tag hide color-white">
-                  contact@arpitchauhan.com<br />
+                  arpitchauhan2028@gmail.com<br />
                 </div>
               </div>
             </a>
           </div>
-          <a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874963" href="https://www.linkedin.com/in/clementmerouani/"
+          <a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874963" href="https://www.linkedin.com/in/arpitchauhan2002"
             class="link-block w-inline-block">
             <div class="div-hide">
               <div class="nav-tag color-white">
-                Website by Flot Noir Studio
+                Website by Arpit Chauhan
               </div>
               <div class="nav-tag hide color-white">
-                Website by Flot Noir Studio
+                Website by Arpit Chauhan
               </div>
             </div>
           </a>
@@ -1826,37 +1854,6 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <img src="assets/vector-back.png" loading="lazy" alt="" class="svg-back" />
           <div class="submenu-back">Deals</div>
           <div class="w-embed">
-            <style>
-              /* ===== SOUS-MENUS MOBILE ===== */
-
-              .nav-mobile__submenu {
-                position: fixed;
-                inset: 0;
-                width: 100%;
-                height: 100dvh;
-                transform: translateX(100%);
-                /* caché à droite */
-                transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
-                z-index: 950;
-                /* au-dessus du panel, sous le burger */
-              }
-
-              /* quand un sous-menu est ouvert */
-              .nav-mobile__submenu.is-open {
-                transform: translateX(0);
-              }
-
-              /* optionnel : petit recul du panel de base quand un sous-menu est ouvert */
-              .nav-mobile-panel.has-submenu-open {
-                transform: translateY(0) translateX(-8%);
-              }
-
-              @media (min-width: 992px) {
-                .nav-mobile__submenu {
-                  display: none;
-                }
-              }
-            </style>
           </div>
         </div>
         <ul role="list" class="nav-submobile__list-link">
@@ -1888,30 +1885,30 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <div class="h-line-mobile on-mobile clipping-item"></div>
           <div class="right right-align">
             <div class="footer-mobile">
-              <a data-w-id="137071fe-db2c-2232-c30c-6b9871b7dac7" href="#https://www.linkedin.com/in/jsprunet/"
+              <a data-w-id="137071fe-db2c-2232-c30c-6b9871b7dac7" href="https://www.linkedin.com/in/arpitchauhan2002"
                 class="link-block w-inline-block">
                 <div class="div-hide">
                   <div class="nav-tag color-white">Linkedin</div>
                   <div class="nav-tag hide color-white">Linkedin</div>
                 </div>
-              </a><a data-w-id="137071fe-db2c-2232-c30c-6b9871b7dacd" href="mailto:contact@arpitchauhan.com"
+              </a><a data-w-id="137071fe-db2c-2232-c30c-6b9871b7dacd" href="arpitchauhan2028@gmail.com"
                 class="link-block w-inline-block">
                 <div class="div-hide">
-                  <div class="nav-tag color-white">contact@arpitchauhan.com</div>
+                  <div class="nav-tag color-white">arpitchauhan2028@gmail.com</div>
                   <div class="nav-tag hide color-white">
-                    contact@arpitchauhan.com<br />
+                    arpitchauhan2028@gmail.com<br />
                   </div>
                 </div>
               </a>
             </div>
-            <a data-w-id="15fb51ef-bf0b-21b6-45a0-eed75180c552" href="https://www.linkedin.com/in/clementmerouani/"
+            <a data-w-id="15fb51ef-bf0b-21b6-45a0-eed75180c552" href="https://www.linkedin.com/in/arpitchauhan2002"
               class="link-block w-inline-block">
               <div class="div-hide">
                 <div class="nav-tag color-white">
-                  Website by Flot Noir Studio
+                  Website by Arpit Chauhan
                 </div>
                 <div class="nav-tag hide color-white">
-                  Website by Flot Noir Studio
+                  Website by Arpit Chauhan
                 </div>
               </div>
             </a>
@@ -1963,7 +1960,6 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
             </p>
             <div class="logo-mobile w-embed">
               <!-- old logo removed -->
-
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 492 178" class="logo-mobile-svg">
                 <path
                   d="M84.15,4.56 L109.19,172.56 L64.46,172.56 L62.27,142.37 L46.59,142.37 L44.00,172.56 L-1.26,172.56 L20.95,4.56 L84.15,4.56 Z M61.04,112.59 Q57.72,84.03 54.39,42.12 Q47.75,90.27 46.09,112.59 L61.04,112.59 Z M116.66,4.56 L147.58,4.56 Q178.49,4.56 189.42,6.95 Q200.38,9.31 207.29,19.14 Q214.19,28.93 214.19,50.42 Q214.19,70.01 209.31,76.79 Q204.43,83.53 190.12,84.86 Q203.10,88.08 207.55,93.49 Q212.00,98.87 213.10,103.39 Q214.19,107.90 214.19,128.26 L214.19,172.56 L173.61,172.56 L173.61,116.74 Q173.61,103.22 171.49,100.03 Q169.36,96.81 160.33,96.81 L160.33,172.56 L116.66,172.56 L116.66,4.56 Z M160.33,33.29 L160.33,70.64 Q167.70,70.64 170.66,68.62 Q173.61,66.59 173.61,55.50 L173.61,46.27 Q173.61,38.27 170.76,35.78 Q167.90,33.29 160.33,33.29 Z M231.12,4.56 L275.13,4.56 Q292.96,4.56 302.56,7.35 Q312.15,10.14 316.97,15.45 Q321.82,20.73 323.51,28.27 Q325.24,35.78 325.24,51.55 L325.24,66.19 Q325.24,82.27 321.92,89.64 Q318.59,97.01 309.73,100.96 Q300.86,104.88 286.52,104.88 L274.79,104.88 L274.79,172.56 L231.12,172.56 L231.12,4.56 Z M274.79,33.29 L274.79,76.06 Q276.65,76.16 278.01,76.16 Q284.03,76.16 286.35,73.20 Q288.71,70.25 288.71,60.88 L288.71,47.10 Q288.71,38.47 285.98,35.88 Q283.29,33.29 274.79,33.29 Z M381.47,4.56 L381.47,172.56 L337.81,172.56 L337.81,4.56 L381.47,4.56 Z M487.03,4.56 L487.03,38.17 L461.07,38.17 L461.07,172.56 L417.40,172.56 L417.40,38.17 L391.56,38.17 L391.56,4.56 L487.03,4.56 Z"
@@ -1974,26 +1970,26 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
           <div class="h-line-mobile on-mobile clipping-item"></div>
           <div class="right right-align">
             <div class="footer-mobile">
-              <a data-w-id="2cae2378-55e7-6dea-3b5b-c810eb5a631a" href="#https://www.linkedin.com/in/jsprunet/"
+              <a data-w-id="2cae2378-55e7-6dea-3b5b-c810eb5a631a" href="https://www.linkedin.com/in/arpitchauhan2002"
                 class="link-block w-inline-block">
                 <div class="div-hide">
                   <div class="nav-tag color-white">Linkedin</div>
                   <div class="nav-tag hide color-white">Linkedin</div>
                 </div>
-              </a><a data-w-id="2cae2378-55e7-6dea-3b5b-c810eb5a6320" href="mailto:contact@arpitchauhan.com"
+              </a><a data-w-id="2cae2378-55e7-6dea-3b5b-c810eb5a6320" href="arpitchauhan2028@gmail.com"
                 class="link-block w-inline-block">
                 <div class="div-hide">
-                  <div class="nav-tag color-white">contact@arpitchauhan.com</div>
+                  <div class="nav-tag color-white">arpitchauhan2028@gmail.com</div>
                   <div class="nav-tag hide color-white">
-                    contact@arpitchauhan.com<br />
+                    arpitchauhan2028@gmail.com<br />
                   </div>
                 </div>
               </a>
             </div>
-            <a href="https://www.linkedin.com/in/clementmerouani/" class="link-block w-inline-block">
+            <a href="https://www.linkedin.com/in/arpitchauhan2002" class="link-block w-inline-block">
               <div class="div-hide">
                 <div class="nav-tag color-white">
-                  Website by Flot Noir Studio
+                  Website by Arpit Chauhan
                 </div>
                 <div class="nav-tag hide color-white">
                   Website by Flot Noir Studio
@@ -2287,138 +2283,8 @@ dropdownConfigs.forEach(({ triggerSelector, dropdownSelector }) => {
             }
           });
         </script>
-
         <script>
-          /* dead duplicate removed */
           void 0;
-          /*
-  // état initial : caché en bas
-  gsap.set(allLines, {
-    y: "140%",
-    opacity: 0
-  });
-}
-
-// ===== PREMIÈRE H-SLIDE → H-ARROW =====
-const firstSlide  = section.querySelector(".h-slide");
-const firstArrows = firstSlide ? firstSlide.querySelectorAll(".h-arrow") : null;
-
-if (firstArrows && firstArrows.length) {
-  gsap.set(firstArrows, {
-    yPercent: 150
-    // opacity: 0 si tu veux aussi un fade
-  });
-}
-
-// Fonction qui joue l'anim texte + flèche (utilisée sur desktop ET mobile)
-function playIntroAnim() {
-  if (splitPlayed) return;
-  splitPlayed = true;
-
-  // Texte split
-  if (allLines && allLines.length) {
-    gsap.to(allLines, {
-      y: "0%",
-      opacity: 1,
-      duration: 0.7,
-      ease: "power3.out",
-      stagger: 0.05
-    });
-  }
-
-  // Première flèche .h-arrow de la première slide
-  if (firstArrows && firstArrows.length) {
-    gsap.to(firstArrows, {
-      yPercent: 0,
-      // opacity: 1,
-      duration: 0.7,
-      ease: "power3.out"
-    });
-  }
-}
-
-// ===================== BRANCHE MOBILE =====================
-if (isMobile) {
-  // Pas de scale ni de scroll horizontal sur mobile
-  gsap.set(wrapper, {
-    scale: 1,
-    x: 0,
-    y: 0,
-    transformOrigin: "100% 100%"
-  });
-
-  gsap.set(track, { x: 0 });
-
-  // On déclenche juste l'anim texte/flèche à l'apparition
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top 80%",
-    once: true,
-    onEnter: playIntroAnim
-  });
-
-  return; // on ne crée PAS la timeline horizontale
-}
-
-// ===================== BRANCHE DESKTOP =====================
-
-// Slides .h-slide = 50vw → le track est plus large que le viewport
-const getTotalDistance = () => track.scrollWidth - window.innerWidth;
-
-// ÉTAT DE DÉPART
-gsap.set(wrapper, {
-  scale: 0,
-  x: 0,
-  y: 0,
-  transformOrigin: "100% 100%" // coin bas-droite
-});
-
-gsap.set(track, { x: 0 });
-
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: section,
-    start: "top top",
-    // un peu de marge après la fin du scroll horizontal pour éviter le "drop"
-    end: () => "+=" + (getTotalDistance() + window.innerHeight * 0.5),
-    scrub: true,
-    pin: true,
-    anticipatePin: 1,
-    invalidateOnRefresh: true,
-    // markers: true,
-  },
-  defaults: { ease: "none" }
-});
-
-// PHASE 1 → scale 0 → 1 + x: 50vw
-tl.to(wrapper, {
-  scale: 1,
-  x: "50vw",
-  y: 0,
-  duration: 0.3,
-});
-
-// 🔔 déclenche l’anim SplitText + première h-arrow une fois
-tl.call(playIntroAnim, null, ">"); // juste après le scale
-
-// PHASE 2 → wrapper revient au centre (x: 0)
-tl.to(wrapper, {
-  x: "0vw",
-  duration: 0.2,
-});
-
-// PHASE 3 → scroll horizontal du track
-tl.to(track, {
-  x: () => -getTotalDistance(),
-  ease: "none",
-  duration: 0.5
-});
-
-// PHASE 4 → léger "pin" en fin de séquence (rien ne bouge, mais le pin reste)
-tl.to({}, {
-  duration: 0.15
-});
-});*/
         </script>
       </div>
       <div class="horizontal-text w-embed w-script">
@@ -2426,10 +2292,8 @@ tl.to({}, {
           window.addEventListener("load", () => {
             const slides = gsap.utils.toArray(".h-slide");
             if (!slides.length) return;
-
             // Map slide -> { lines, svgPaths, arrows, isFirst, played }
             const slideDataMap = new Map();
-
             // 1) Préparation slide par slide
             slides.forEach((slide, index) => {
               const targets = slide.querySelectorAll(".split-horizontal");
@@ -3194,7 +3058,7 @@ tl.to({}, {
       <div class="h-line on-mobile"></div>
       <div class="right right-align">
         <div class="footer-mobile">
-          <a data-w-id="8fc34f98-52bc-4588-c8ae-15f2d43db3c6" href="https://www.linkedin.com/company/tiwis-consulting"
+          <a data-w-id="8fc34f98-52bc-4588-c8ae-15f2d43db3c6" href="https://www.linkedin.com/in/arpitchauhan2002/"
             class="link-block w-inline-block">
             <div class="div-hide">
               <div class="nav-tag color-white">Linkedin</div>
