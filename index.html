@@ -676,8 +676,51 @@
         scroll-behavior: smooth;
       }
     }
+
+    /* ---- REDUCE TEXT SECTION SIZES ---- */
+    .manifesto {
+      font-size: 2.8vw !important;
+      line-height: 1.1 !important;
+    }
+
+    .center-text {
+      grid-column-gap: 4vw !important;
+      grid-row-gap: 4vw !important;
+      padding: 4vw 1.389vw !important;
+    }
+
+    .manifesto.clipping-text.about-p {
+      max-width: 65% !important;
+    }
+
+    .section__intro-text .manifesto {
+      font-size: 2.5vw !important;
+    }
+
+    @media screen and (max-width: 991px) {
+      .manifesto {
+        font-size: 4vw !important;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .manifesto {
+        font-size: 5vw !important;
+      }
+
+      .center-text {
+        grid-column-gap: 8vw !important;
+        grid-row-gap: 8vw !important;
+        padding: 8vw 4.975vw !important;
+      }
+
+      .manifesto.clipping-text.about-p {
+        max-width: 85% !important;
+      }
+    }
   </style>
 </head>
+
 
 <body>
   <div data-wf--nav--variant="base" class="navigation">
