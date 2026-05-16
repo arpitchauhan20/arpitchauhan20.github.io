@@ -9,16 +9,16 @@
     Arpit Chauhan | Web Developer & Frontend Engineer
   </title>
   <meta
-    content="Arpit crafts high-performance, visually stunning websites and web applications using modern frameworks, clean code, and pixel-perfect design."
+    content="Arpit crafts high-performance, visually stunning websites and web applications using HTML, CSS, JavaScript, and PHP, with clean code and pixel-perfect design."
     name="description" />
   <meta content="ARPIT | Web Developer & Frontend Engineer" property="og:title" />
   <meta
-    content="Arpit crafts high-performance, visually stunning websites and web applications using modern frameworks, clean code, and pixel-perfect design."
+    content="Arpit crafts high-performance, visually stunning websites and web applications using HTML, CSS, JavaScript, and PHP, with clean code and pixel-perfect design."
     property="og:description" />
   <meta content="assets/Arpit-screen.jpg" property="og:image" />
   <meta content="ARPIT | Web Developer & Frontend Engineer" property="twitter:title" />
   <meta
-    content="Arpit crafts high-performance, visually stunning websites and web applications using modern frameworks, clean code, and pixel-perfect design."
+    content="Arpit crafts high-performance, visually stunning websites and web applications using HTML, CSS, JavaScript, and PHP, with clean code and pixel-perfect design."
     property="twitter:description" />
   <meta property="og:type" content="website" />
   <meta content="summary_large_image" name="twitter:card" />
@@ -207,6 +207,77 @@
       position: relative;
       z-index: 1;
       margin-bottom: 0 !important;
+      --about-stack-top: clamp(4.5rem, 9.722vw, 7.5rem);
+      --about-slide-h: calc(100vh - var(--about-stack-top));
+      --about-slide-h: calc(100dvh - var(--about-stack-top));
+      /* Extra vertical scroll per slide so sticky panels have room to pass over each other */
+      --about-stack-extra: max(28vh, 12rem);
+      isolation: isolate;
+      overflow: visible !important;
+    }
+
+    /*
+      Stacking scroll (480px+): each slide wrapper is taller than one viewport; the
+      inner container is sticky at the same offset so slide 2 scrolls up over slide 1.
+    */
+    @media screen and (min-width: 480px) {
+      .about__expertise-section {
+        grid-column-gap: 0 !important;
+        grid-row-gap: 0 !important;
+        gap: 0 !important;
+      }
+
+      .about__expertise-stack-slide {
+        min-height: calc(var(--about-slide-h) + var(--about-stack-extra));
+        position: relative;
+      }
+
+      .about__expertise-stack-slide:last-child {
+        /* Last slide only needs its panel height + tail scroll */
+        min-height: calc(var(--about-slide-h) + var(--about-stack-extra) * 0.35);
+      }
+
+      .about__expertise-stack-slide .about__expertise-container {
+        position: sticky !important;
+        top: var(--about-stack-top) !important;
+        z-index: 1;
+        /* Height follows content - avoid a tall empty band under the copy */
+        min-height: 0 !important;
+        height: auto;
+        box-sizing: border-box !important;
+      }
+
+      .about__expertise-stack-slide:last-child .about__expertise-container {
+        z-index: 2 !important;
+      }
+
+      .about__expertise-mask {
+        flex: 0 0 auto;
+        display: flex !important;
+        flex-flow: column !important;
+        min-height: 0;
+        background-color: var(--black, #0a0a0a);
+      }
+
+      .about-expertise__content {
+        flex: 0 0 auto;
+      }
+
+      /* Second slide: text left, geometric shape right */
+      .about__expertise-stack-slide:last-child .about-expertise__content {
+        flex-direction: row-reverse;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .about__expertise-stack-slide {
+        min-height: 0;
+      }
+
+      /* Second slide on mobile: body copy before the SVG */
+      .about__expertise-stack-slide:last-child .about-expertise__content {
+        flex-direction: column-reverse;
+      }
     }
 
     /* Remove white gap between dark expertise section and footer */
@@ -242,6 +313,42 @@
       width: 100%;
     }
 
+    /* Geometric SVG beside copy - desktop/tablet row layout needs explicit size (main.css not linked) */
+    .about-expertise__content {
+      align-items: center;
+    }
+
+    .about-expertise__svg {
+      flex: 0 0 auto;
+      width: clamp(10rem, 15.069vw, 217px);
+      max-width: min(217px, 42vw);
+      align-self: center;
+    }
+
+    .about-expertise__svg svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .about-expertise__svg,
+    .about-expertise__svg svg {
+      visibility: visible !important;
+    }
+
+    /*
+      Row layout (480px+): show full strokes; scroll-linked dash animation often leaves lines invisible on desktop.
+      Stacked mobile layout keeps the scripted draw effect.
+    */
+    @media screen and (min-width: 480px) {
+
+      .about-expertise__svg path,
+      .about-expertise__svg rect {
+        stroke-dasharray: unset !important;
+        stroke-dashoffset: 0 !important;
+      }
+    }
+
     /* ---- GLOBAL ---- */
     *,
     *::before,
@@ -253,6 +360,182 @@
     body {
       overflow-x: clip;
       width: 100%;
+    }
+
+    /* Footer / #contact: fixed 100vh clips the large logo - grow with content */
+    .footer {
+      height: auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      overflow: visible;
+      padding-bottom: calc(
+        1vw + clamp(1.35rem, 6vmin, 5rem) + env(safe-area-inset-bottom, 0px)
+      );
+    }
+
+    .footer .logo-footer {
+      overflow: visible;
+    }
+
+    /* Projects grid → CTA: less dead space than default Webflow use-case padding */
+    #projects.use-case__wrapper {
+      padding-bottom: clamp(1rem, 3.5vw, 2.75rem);
+    }
+
+    @media screen and (max-width: 991px) {
+      #projects.use-case__wrapper {
+        padding-bottom: clamp(1rem, 5vw, 2.5rem);
+      }
+    }
+
+    /* Projects → portfolio CTA: bracket hover (readable on .last-section.bg-white) */
+    .projects-portfolio-cta {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      padding: clamp(0.5rem, 1.5vw, 1rem) 4.975vw clamp(1.25rem, 3vw, 2.25rem);
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 14px 28px;
+      border: 2px solid #0a0a0a;
+      text-transform: uppercase;
+      color: #0a0a0a;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: clamp(0.72rem, 1.5vw, 0.95rem);
+      font-family: inherit;
+      letter-spacing: 0.08em;
+      line-height: 1.2;
+      background-color: #ffffff;
+      cursor: pointer;
+      isolation: isolate;
+      box-shadow:
+        0 1px 0 rgba(10, 10, 10, 0.06),
+        0 12px 32px rgba(10, 10, 10, 0.08);
+      transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: -2px;
+      width: calc(100% + 4px);
+      height: calc(100% - 12px);
+      background-color: #ffffff;
+      transition: transform 0.3s ease-in-out;
+      transform: scaleY(1);
+      transform-origin: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn:hover::before {
+      transform: scaleY(0);
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: -2px;
+      height: calc(100% + 4px);
+      width: calc(100% - 12px);
+      background-color: #ffffff;
+      transition: transform 0.3s ease-in-out;
+      transition-delay: 0.45s;
+      transform: scaleX(1);
+      transform-origin: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn:hover::after {
+      transform: scaleX(0);
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn:hover {
+      border-color: #fa7636;
+      color: #0a0a0a;
+      box-shadow:
+        0 1px 0 rgba(250, 118, 54, 0.12),
+        0 16px 40px rgba(10, 10, 10, 0.12);
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn__content {
+      position: relative;
+      z-index: 3;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      pointer-events: none;
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn__arrow {
+      flex-shrink: 0;
+      transition: transform 0.25s ease;
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn:hover .portfolio-magnet-btn__arrow {
+      transform: translateX(5px);
+    }
+
+    .projects-portfolio-cta .portfolio-magnet-btn:focus-visible {
+      outline: 2px solid #fa7636;
+      outline-offset: 4px;
+    }
+
+    /* Touch / coarse pointers: solid chip (hover bracket does not apply) */
+    @media (hover: none) {
+
+      .projects-portfolio-cta .portfolio-magnet-btn::before,
+      .projects-portfolio-cta .portfolio-magnet-btn::after {
+        display: none;
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn:active {
+        border-color: #fa7636;
+        transform: scale(0.98);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      .projects-portfolio-cta .portfolio-magnet-btn::before,
+      .projects-portfolio-cta .portfolio-magnet-btn::after {
+        transition: none;
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn:hover::before {
+        transform: scaleY(1);
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn:hover::after {
+        transform: scaleX(1);
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn__arrow {
+        transition: none;
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn:hover .portfolio-magnet-btn__arrow {
+        transform: none;
+      }
+
+      .projects-portfolio-cta .portfolio-magnet-btn:active {
+        transform: none;
+      }
     }
 
     img,
@@ -271,11 +554,12 @@
 
     .last-section,
     .use-case-section,
-    .about__expertise-section,
     #contact {
       content-visibility: auto;
       contain-intrinsic-size: auto 100vh;
     }
+
+    /* About expertise: do not use content-visibility - it can skip painting the left SVG on wide viewports */
 
     .section-home,
     .navigation,
@@ -294,7 +578,7 @@
     }
 
     /* =============================================
-       991px — Burger appears, hide desktop nav
+       991px - Burger appears, hide desktop nav
        (matches TIWIS inline CSS behavior)
        ============================================= */
     @media screen and (max-width: 991px) {
@@ -361,12 +645,15 @@
       .div-block-8 {
         height: auto;
         min-height: 100dvh;
-        padding-bottom: 7.463vw;
+        padding-bottom: calc(
+          5vw + clamp(1.25rem, 6vmin, 3.5rem) +
+            env(safe-area-inset-bottom, 0px)
+        );
         padding-left: 4.975vw;
         padding-right: 4.975vw;
       }
 
-      /* Horizontal section — stack vertically, kill transforms */
+      /* Horizontal section - stack vertically, kill transforms */
       .horizontal-section {
         margin-top: 0;
         position: relative;
@@ -432,7 +719,7 @@
         padding-right: 4.975vw;
       }
 
-      /* Inside h-slides the parent already has padding — remove extra */
+      /* Inside h-slides the parent already has padding - remove extra */
       .h-slide .bot {
         padding-left: 0;
         padding-right: 0;
@@ -492,6 +779,16 @@
       .about__expertise-mask {
         grid-column-gap: 14vw;
         grid-row-gap: 14vw;
+      }
+
+      .about__expertise-stack-slide .about__expertise-container {
+        position: relative !important;
+        top: auto !important;
+        min-height: 0 !important;
+      }
+
+      .about__expertise-stack-slide:last-child .about__expertise-container {
+        z-index: auto !important;
       }
 
       /* Team value images */
@@ -1632,10 +1929,10 @@
             <a href="#offers" class="nav-submobile__link">Custom Website Development</a>
           </li>
           <li class="nav-submobile__list-item">
-            <a href="#offers" class="nav-submobile__link">UI/UX Design & Prototyping</a>
+            <a href="#offers" class="nav-submobile__link">Interactive UI with HTML/CSS/JS</a>
           </li>
           <li class="nav-submobile__list-item">
-            <a href="#offers" class="nav-submobile__link">Full-Stack Web Applications</a>
+            <a href="#offers" class="nav-submobile__link">Full-Stack PHP Web Applications</a>
           </li>
         </ul>
         <div class="bot clipping-text nav">
@@ -1781,9 +2078,9 @@
           Crafting Digital Experiences that Inspire.
         </p>
         <p class="claim-s" style="opacity: 0.8; max-width: 600px;">
-          Web Developer • Frontend Engineer • UI Specialist<br /><span style="opacity: 0.7;">Building fast, beautiful,
+          Web Developer • Frontend Engineer • PHP Developer<br /><span style="opacity: 0.7;">Building fast, beautiful,
             and
-            responsive websites.</span>
+            responsive websites using HTML, CSS, JS, and PHP.</span>
         </p>
       </div>
       <div data-wf-target='[[["68f77e4ac7ca6bd68b326cb4","6efb697d-d0ab-36b3-30f7-aca4aff8ec9f"],[]]]'
@@ -1808,7 +2105,7 @@
           </div>
           <div id="w-node-f795206b-cfea-47c2-42e7-3d1c4abaf737-8b326cb4">
             <p class="manifesto">
-              Great websites don't just look good—they perform. I combine modern frontend frameworks, clean architecture, and thoughtful design to build digital experiences that engage users and drive business growth.
+              Great websites don't just look good; they perform. I combine deep expertise in HTML, CSS, JavaScript, and PHP with clean architecture and thoughtful design to build digital experiences that engage users and drive business growth.
             </p>
           </div>
         </div>
@@ -1820,7 +2117,7 @@
             <div class="nav-tag split-tag">services</div>
           </div>
           <p class="manifesto">
-            <span class="text-span-2"> </span>I blend cutting-edge frontend technologies, responsive design,
+            <span class="text-span-2"> </span>I blend core web technologies like HTML, CSS, JavaScript, and PHP with responsive design
             and user-centered thinking to transform your vision into
             high-performance digital products.
           </p>
@@ -1833,7 +2130,7 @@
           <div class="h-slide">
             <div class="top">
               <p class="claim-s split-timeline">
-                Designing and developing custom websites from scratch with pixel-perfect precision, semantic HTML, and modern CSS.<br />
+                Designing and developing custom websites from scratch with pixel-perfect precision using semantic HTML, modern CSS, dynamic JavaScript, and robust PHP backends.<br />
               </p>
               <div class="div-hide">
                 <div class="h-arrow w-embed">
@@ -2215,7 +2512,7 @@
               <div class="value-text">
                 <h4>Pixel-Perfect<br />Precision</h4>
                 <p>
-                  A beautiful design means nothing if it doesn't load fast and work flawlessly. I focus on clean code, performance, and user experience—not just aesthetics.
+                  A beautiful design means nothing if it doesn't load fast and work flawlessly. I focus on clean code, performance, and user experience, not just aesthetics.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2251,7 +2548,7 @@
               <div class="value-text">
                 <h4>User-First<br />Thinking</h4>
                 <p>
-                  The web is for people, not machines. I build interfaces that are intuitive, accessible, and delightful to use—solving real problems for real users.
+                  The web is for people, not machines. I build interfaces that are intuitive, accessible, and delightful to use, solving real problems for real users.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2366,189 +2663,19 @@
       <div class="use-case__wrapper collection-list-wrapper-2 w-dyn-list" id="projects">
         <div role="list" class="use-case__list w-dyn-items">
           <div role="listitem" class="use-case__item w-dyn-item">
-            <a href="https://github.com/arpitchauhan20/Data-Science" target="_blank"
+            <a href="https://deepatruckrepair.com/" target="_blank" rel="noopener noreferrer"
               class="use-case__block w-inline-block">
               <div class="use-case__img-container">
                 <div class="use-case__img-mask">
-                  <img src="assets/superhead-cover.jpeg" loading="lazy" decoding="async" alt=""
-                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
-                        assets/superhead-cover.jpeg   800w,
-                        assets/superhead-cover.jpeg 2000w,
-                        assets/superhead-cover.jpeg        3268w
-                      " class="use-case__img-item" />
-                </div>
-              </div>
-              <div class="use-case__block-top">
-                <div class="top use-case__top-margin">
-                  <h4 class="use-case-h4">E-Commerce Storefront</h4>
-                  <div class="w-embed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                      <path d="M8 7.33138H5.92082V3.41642L1.33724 8L0 6.66276L4.58358 2.07918H0.668622V0H8L8 7.33138Z"
-                        fill="currentColor" />
-                    </svg>
-                  </div>
-                </div>
-                <p class="use-case-text">
-                  Retail / Online Business
-                </p>
-              </div>
-              <p class="use-case-text">
-                Custom Shopify & WordPress commerce with integrated payment
-              </p>
-              <div class="w-embed w-script">
-                <script>
-                  window.addEventListener("DOMContentLoaded", () => {
-                    const wrappers =
-                      document.querySelectorAll(".use-case__wrapper");
-                    if (!wrappers.length) return;
-
-                    function initScrollAnim(wrapper) {
-                      const masks = wrapper.querySelectorAll(
-                        ".use-case__img-mask"
-                      );
-                      if (!masks.length) return;
-
-                      // État de départ pour tous les masks
-                      gsap.set(masks, { clipPath: "inset(30%)" });
-
-                      // Timeline liée au scroll, avec petit scrub + stagger
-                      gsap
-                        .timeline({
-                          scrollTrigger: {
-                            trigger: masks,
-                            start: "top bottom", // la section commence à entrer dans le viewport
-                            end: "30% bottom", // la section sort complètement
-                            scrub: 1, // petit scrub fluide
-                            //markers: true,
-                          },
-                        })
-                        .to(masks, {
-                          clipPath: "inset(0%)",
-                          ease: "none",
-                          stagger: 0.1, // léger décalage entre les .use-case__item
-                        });
-                    }
-
-                    // Observer : dès que le wrapper commence à être visible, on crée la timeline
-                    const observer = new IntersectionObserver(
-                      (entries) => {
-                        entries.forEach((entry) => {
-                          if (!entry.isIntersecting) return;
-
-                          const wrapper = entry.target;
-                          initScrollAnim(wrapper);
-
-                          // on ne ré-initialise pas plusieurs fois
-                          observer.unobserve(wrapper);
-                        });
-                      },
-                      {
-                        threshold: 0.01, // dès que la section commence à être visible
-                      }
-                    );
-                    wrappers.forEach((wrapper) => observer.observe(wrapper));
-                  });
-                </script>
-              </div>
-            </a>
-          </div>
-          <div role="listitem" class="use-case__item w-dyn-item">
-            <a href="https://github.com/arpitchauhan20/Data-Science" target="_blank"
-              class="use-case__block w-inline-block">
-              <div class="use-case__img-container">
-                <div class="use-case__img-mask">
-                  <img src="assets/rectangle-6.jpeg" loading="lazy" decoding="async" alt=""
-                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw" srcset="
-                        assets/rectangle-6.jpeg 800w,
-                        assets/rectangle-6.jpeg       906w
-                      " class="use-case__img-item" />
-                </div>
-              </div>
-              <div class="use-case__block-top">
-                <div class="top use-case__top-margin">
-                  <h4 class="use-case-h4">SaaS Marketing Website</h4>
-                  <div class="w-embed">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
-                      <path d="M8 7.33138H5.92082V3.41642L1.33724 8L0 6.66276L4.58358 2.07918H0.668622V0H8L8 7.33138Z"
-                        fill="currentColor" />
-                    </svg>
-                  </div>
-                </div>
-                <p class="use-case-text">B2B SaaS Startup</p>
-              </div>
-              <p class="use-case-text">
-                High-conversion landing page with custom CSS and JS animations
-              </p>
-              <div class="w-embed w-script">
-                <script>
-                  window.addEventListener("DOMContentLoaded", () => {
-                    const wrappers =
-                      document.querySelectorAll(".use-case__wrapper");
-                    if (!wrappers.length) return;
-
-                    function initScrollAnim(wrapper) {
-                      const masks = wrapper.querySelectorAll(
-                        ".use-case__img-mask"
-                      );
-                      if (!masks.length) return;
-
-                      // État de départ pour tous les masks
-                      gsap.set(masks, { clipPath: "inset(30%)" });
-
-                      // Timeline liée au scroll, avec petit scrub + stagger
-                      gsap
-                        .timeline({
-                          scrollTrigger: {
-                            trigger: masks,
-                            start: "top bottom", // la section commence à entrer dans le viewport
-                            end: "30% bottom", // la section sort complètement
-                            scrub: 1, // petit scrub fluide
-                            //markers: true,
-                          },
-                        })
-                        .to(masks, {
-                          clipPath: "inset(0%)",
-                          ease: "none",
-                          stagger: 0.1, // léger décalage entre les .use-case__item
-                        });
-                    }
-
-                    // Observer : dès que le wrapper commence à être visible, on crée la timeline
-                    const observer = new IntersectionObserver(
-                      (entries) => {
-                        entries.forEach((entry) => {
-                          if (!entry.isIntersecting) return;
-
-                          const wrapper = entry.target;
-                          initScrollAnim(wrapper);
-
-                          // on ne ré-initialise pas plusieurs fois
-                          observer.unobserve(wrapper);
-                        });
-                      },
-                      {
-                        threshold: 0.01, // dès que la section commence à être visible
-                      }
-                    );
-
-                    wrappers.forEach((wrapper) => observer.observe(wrapper));
-                  });
-                </script>
-              </div>
-            </a>
-          </div>
-          <div role="listitem" class="use-case__item w-dyn-item">
-            <a href="https://github.com/arpitchauhan20/Data-Science" target="_blank"
-              class="use-case__block w-inline-block">
-              <div class="use-case__img-container">
-                <div class="use-case__img-mask">
-                  <img src="assets/lumaravision.jpeg" loading="lazy" decoding="async" alt=""
+                  <img src="assets/deep.png" loading="lazy" decoding="async"
+                    alt="Deep Truck Repair - website preview"
+                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw"
                     class="use-case__img-item" />
                 </div>
               </div>
               <div class="use-case__block-top">
                 <div class="top use-case__top-margin">
-                  <h4 class="use-case-h4">Creative Portfolio Hub</h4>
+                  <h4 class="use-case-h4">Deep Truck Repair</h4>
                   <div class="w-embed">
                     <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
                       <path d="M8 7.33138H5.92082V3.41642L1.33724 8L0 6.66276L4.58358 2.07918H0.668622V0H8L8 7.33138Z"
@@ -2557,10 +2684,181 @@
                   </div>
                 </div>
                 <p class="use-case-text">
-                  Design Agency / Freelance
+                  Automotive · Fleet &amp; roadside repair
                 </p>
               </div>
-              <p class="use-case-text">Custom dynamic web experiences and seamless page transitions</p>
+              <p class="use-case-text">
+                Built for deepatruckrepair.com - services, trust-building layout, and fast mobile experience for drivers and fleet managers.
+              </p>
+              <div class="w-embed w-script">
+                <script>
+                  window.addEventListener("DOMContentLoaded", () => {
+                    const wrappers =
+                      document.querySelectorAll(".use-case__wrapper");
+                    if (!wrappers.length) return;
+
+                    function initScrollAnim(wrapper) {
+                      const masks = wrapper.querySelectorAll(
+                        ".use-case__img-mask"
+                      );
+                      if (!masks.length) return;
+
+                      // État de départ pour tous les masks
+                      gsap.set(masks, { clipPath: "inset(30%)" });
+
+                      // Timeline liée au scroll, avec petit scrub + stagger
+                      gsap
+                        .timeline({
+                          scrollTrigger: {
+                            trigger: masks,
+                            start: "top bottom", // la section commence à entrer dans le viewport
+                            end: "30% bottom", // la section sort complètement
+                            scrub: 1, // petit scrub fluide
+                            //markers: true,
+                          },
+                        })
+                        .to(masks, {
+                          clipPath: "inset(0%)",
+                          ease: "none",
+                          stagger: 0.1, // léger décalage entre les .use-case__item
+                        });
+                    }
+
+                    // Observer : dès que le wrapper commence à être visible, on crée la timeline
+                    const observer = new IntersectionObserver(
+                      (entries) => {
+                        entries.forEach((entry) => {
+                          if (!entry.isIntersecting) return;
+
+                          const wrapper = entry.target;
+                          initScrollAnim(wrapper);
+
+                          // on ne ré-initialise pas plusieurs fois
+                          observer.unobserve(wrapper);
+                        });
+                      },
+                      {
+                        threshold: 0.01, // dès que la section commence à être visible
+                      }
+                    );
+                    wrappers.forEach((wrapper) => observer.observe(wrapper));
+                  });
+                </script>
+              </div>
+            </a>
+          </div>
+          <div role="listitem" class="use-case__item w-dyn-item">
+            <a href="https://homeeasemtgs.com/" target="_blank" rel="noopener noreferrer"
+              class="use-case__block w-inline-block">
+              <div class="use-case__img-container">
+                <div class="use-case__img-mask">
+                  <img src="assets/homeease.png" loading="lazy" decoding="async"
+                    alt="Home Ease Mortgages - mortgage brokerage website for Fraser Valley &amp; BC"
+                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw"
+                    class="use-case__img-item" />
+                </div>
+              </div>
+              <div class="use-case__block-top">
+                <div class="top use-case__top-margin">
+                  <h4 class="use-case-h4">Home Ease Mortgages</h4>
+                  <div class="w-embed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                      <path d="M8 7.33138H5.92082V3.41642L1.33724 8L0 6.66276L4.58358 2.07918H0.668622V0H8L8 7.33138Z"
+                        fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+                <p class="use-case-text">Mortgage broker · Surrey &amp; Abbotsford · Fraser Valley</p>
+              </div>
+              <p class="use-case-text">
+                Built for homeeasemtgs.com - trusted mortgage solutions for purchases, refinance, and renewals; clear steps to pre-approval, lender comparisons, calculators, and CTAs tailored to BC &amp; Alberta clients.
+              </p>
+              <div class="w-embed w-script">
+                <script>
+                  window.addEventListener("DOMContentLoaded", () => {
+                    const wrappers =
+                      document.querySelectorAll(".use-case__wrapper");
+                    if (!wrappers.length) return;
+
+                    function initScrollAnim(wrapper) {
+                      const masks = wrapper.querySelectorAll(
+                        ".use-case__img-mask"
+                      );
+                      if (!masks.length) return;
+
+                      // État de départ pour tous les masks
+                      gsap.set(masks, { clipPath: "inset(30%)" });
+
+                      // Timeline liée au scroll, avec petit scrub + stagger
+                      gsap
+                        .timeline({
+                          scrollTrigger: {
+                            trigger: masks,
+                            start: "top bottom", // la section commence à entrer dans le viewport
+                            end: "30% bottom", // la section sort complètement
+                            scrub: 1, // petit scrub fluide
+                            //markers: true,
+                          },
+                        })
+                        .to(masks, {
+                          clipPath: "inset(0%)",
+                          ease: "none",
+                          stagger: 0.1, // léger décalage entre les .use-case__item
+                        });
+                    }
+
+                    // Observer : dès que le wrapper commence à être visible, on crée la timeline
+                    const observer = new IntersectionObserver(
+                      (entries) => {
+                        entries.forEach((entry) => {
+                          if (!entry.isIntersecting) return;
+
+                          const wrapper = entry.target;
+                          initScrollAnim(wrapper);
+
+                          // on ne ré-initialise pas plusieurs fois
+                          observer.unobserve(wrapper);
+                        });
+                      },
+                      {
+                        threshold: 0.01, // dès que la section commence à être visible
+                      }
+                    );
+
+                    wrappers.forEach((wrapper) => observer.observe(wrapper));
+                  });
+                </script>
+              </div>
+            </a>
+          </div>
+          <div role="listitem" class="use-case__item w-dyn-item">
+            <a href="https://amysoul.com/" target="_blank" rel="noopener noreferrer"
+              class="use-case__block w-inline-block">
+              <div class="use-case__img-container">
+                <div class="use-case__img-mask">
+                  <img src="assets/amysoul.jpeg" loading="lazy" decoding="async"
+                    alt="AmySoul - website preview"
+                    sizes="(max-width: 479px) 90vw, (max-width: 991px) 50vw, 33vw"
+                    class="use-case__img-item" />
+                </div>
+              </div>
+              <div class="use-case__block-top">
+                <div class="top use-case__top-margin">
+                  <h4 class="use-case-h4">AmySoul</h4>
+                  <div class="w-embed">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8" fill="none">
+                      <path d="M8 7.33138H5.92082V3.41642L1.33724 8L0 6.66276L4.58358 2.07918H0.668622V0H8L8 7.33138Z"
+                        fill="currentColor" />
+                    </svg>
+                  </div>
+                </div>
+                <p class="use-case-text">
+                  Lifestyle · Wellness · Creative brand
+                </p>
+              </div>
+              <p class="use-case-text">
+                Live at amysoul.com - immersive visuals, editorial typography, and fluid transitions that match a soulful, premium identity.
+              </p>
               <div class="w-embed w-script">
                 <script>
                   window.addEventListener("DOMContentLoaded", () => {
@@ -2620,6 +2918,19 @@
             </a>
           </div>
         </div>
+      </div>
+
+      <div class="projects-portfolio-cta">
+        <a href="portfolio.html" class="portfolio-magnet-btn">
+          <span class="portfolio-magnet-btn__content">
+            Portfolio &amp; live previews
+            <svg class="portfolio-magnet-btn__arrow" width="18" height="18" viewBox="0 0 24 24" fill="none"
+              xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M5 12h14m0 0-6-6m6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </span>
+        </a>
       </div>
 
       <div class="bg-white">
@@ -2679,63 +2990,67 @@
         </div>
       </div>
       <div class="about__expertise-section">
-        <div class="about__expertise-container">
-          <div class="about__expertise-mask">
-            <div class="h-line color-blue"></div>
-            <div class="about-expertise__content">
-              <div class="about-expertise__svg w-embed">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217 217" fill="none">
-                  <path d="M216.25 0.75V108.189L108.189 216.25H0.75V0.75H216.25Z" stroke="#ffffff" stroke-width="1.5"
-                    stroke-miterlimit="10" />
-                  <rect x="1.06066" y="108.5" width="151.942" height="151.942" transform="rotate(-45 1.06066 108.5)"
-                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-                  <path d="M108.701 214.678L107.392 107.388L214.682 108.696L108.701 214.678Z" stroke="#ffffff"
-                    stroke-width="1.5" stroke-miterlimit="10" />
-                </svg>
-              </div>
-              <div class="about-expertise__text-cont">
-                <div class="about-expertise__title">
-                  <h5>I am a<br />Doer</h5>
-                  <p class="claim-s">
-                    Design &gt; Develop &gt; Deploy: I know how to step back and analyze the user experience before building
-                    end-to-end digital web solutions.
+        <div class="about__expertise-stack-slide">
+          <div class="about__expertise-container">
+            <div class="about__expertise-mask">
+              <div class="h-line color-blue"></div>
+              <div class="about-expertise__content">
+                <div class="about-expertise__svg w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 217 217" fill="none">
+                    <path d="M216.25 0.75V108.189L108.189 216.25H0.75V0.75H216.25Z" stroke="#ffffff" stroke-width="1.5"
+                      stroke-miterlimit="10" />
+                    <rect x="1.06066" y="108.5" width="151.942" height="151.942" transform="rotate(-45 1.06066 108.5)"
+                      stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                    <path d="M108.701 214.678L107.392 107.388L214.682 108.696L108.701 214.678Z" stroke="#ffffff"
+                      stroke-width="1.5" stroke-miterlimit="10" />
+                  </svg>
+                </div>
+                <div class="about-expertise__text-cont">
+                  <div class="about-expertise__title">
+                    <h5>I am a<br />Doer</h5>
+                    <p class="claim-s">
+                      Design &gt; Develop &gt; Deploy: I know how to step back and analyze the user experience before building
+                      end-to-end digital web solutions.
+                    </p>
+                  </div>
+                  <p class="about-expertise__text">
+                    I act as your technical co-pilot:<br />I challenge limits with modern code, build robust frameworks, and
+                    ensure that every line of code transforms the business.
                   </p>
                 </div>
-                <p class="about-expertise__text">
-                  I act as your technical co-pilot:<br />I challenge limits with modern code, build robust frameworks, and
-                  ensure that every line of code transforms the business.
-                </p>
               </div>
             </div>
           </div>
         </div>
-        <div class="about__expertise-container">
-          <div class="about__expertise-mask">
-            <div class="h-line color-blue"></div>
-            <div class="about-expertise__content">
-              <div class="about-expertise__svg w-embed">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 214" fill="none">
-                  <path d="M0.750003 0.750061L0.75 212.739L216.495 212.739L216.495 0.750064L0.750003 0.750061Z"
-                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-                  <path d="M216.75 212.739C97.4426 212.739 0.75 117.837 0.75 0.738525" stroke="#ffffff"
-                    stroke-width="1.5" stroke-miterlimit="10" />
-                  <path
-                    d="M216.17 0.750124C216.17 117.782 119.737 212.63 0.75 212.63C0.750001 95.5984 97.1829 0.750123 216.17 0.750124Z"
-                    stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
-                </svg>
-              </div>
-              <div class="about-expertise__text-cont">
-                <div class="about-expertise__title">
-                  <h5>User centric,<br />business driven</h5>
-                  <p class="claim-s">
-                    Everything starts with understanding the business need. From there, I design intuitive interfaces and write pristine code to ensure the success of your web products.
+        <div class="about__expertise-stack-slide">
+          <div class="about__expertise-container">
+            <div class="about__expertise-mask">
+              <div class="h-line color-blue"></div>
+              <div class="about-expertise__content">
+                <div class="about-expertise__svg w-embed">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 214" fill="none">
+                    <path d="M0.750003 0.750061L0.75 212.739L216.495 212.739L216.495 0.750064L0.750003 0.750061Z"
+                      stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                    <path d="M216.75 212.739C97.4426 212.739 0.75 117.837 0.75 0.738525" stroke="#ffffff"
+                      stroke-width="1.5" stroke-miterlimit="10" />
+                    <path
+                      d="M216.17 0.750124C216.17 117.782 119.737 212.63 0.75 212.63C0.750001 95.5984 97.1829 0.750123 216.17 0.750124Z"
+                      stroke="#ffffff" stroke-width="1.5" stroke-miterlimit="10" />
+                  </svg>
+                </div>
+                <div class="about-expertise__text-cont">
+                  <div class="about-expertise__title">
+                    <h5>User centric,<br />business driven</h5>
+                    <p class="claim-s">
+                      Everything starts with understanding the business need. From there, I design intuitive interfaces and write pristine code to ensure the success of your web products.
+                    </p>
+                  </div>
+                  <p class="about-expertise__text">
+                    You can't build great products by just staring at wireframes. Experiences are built through understanding real-world user interactions.<br /><br />Iterating on designs quickly, optimizing frontend performance, and delivering
+                    scalable
+                    web apps: this is the key to creating value and continuously improving digital presence.
                   </p>
                 </div>
-                <p class="about-expertise__text">
-                  You can't build great products by just staring at wireframes. Experiences are built through understanding real-world user interactions.<br /><br />Iterating on designs quickly, optimizing frontend performance, and delivering
-                  scalable
-                  web apps: this is the key to creating value and continuously improving digital presence.
-                </p>
               </div>
             </div>
           </div>
@@ -2827,11 +3142,13 @@
             </div>
           </div>
         </a>
-        <div class="div-hide">
-          <div class="nav-tag color-white first">Linkedin</div>
-          <div class="nav-tag hide color-white two">Linkedin</div>
-        </div>
-        </a><a data-w-id="51665e2c-e74f-b8de-6933-62c02c3f2477" href="https://www.linkedin.com/in/arpitchauhan2002"
+        <a href="https://www.linkedin.com/in/arpitchauhan2002/" target="_blank" rel="noopener noreferrer"
+          class="link-block no-mobile w-inline-block">
+          <div class="div-hide">
+            <div class="nav-tag color-white first">Linkedin</div>
+            <div class="nav-tag hide color-white two">Linkedin</div>
+          </div>
+        </a><a data-w-id="51665e2c-e74f-b8de-6933-62c02c3f2477" href=""
           class="link-block last-link w-inline-block">
           <div class="div-hide">
             <div class="nav-tag color-white first">
@@ -2855,7 +3172,7 @@
   <script src="js/lenis.min.js"></script>
 
   <script type="text/javascript">
-    // Skip heavy WebGL background on mobile/tablet — not visible behind grayscale+dark filter
+    // Skip heavy WebGL background on mobile/tablet - not visible behind grayscale+dark filter
     !(function () {
       if (window.innerWidth <= 991) return;
       if (!window.UnicornStudio) {
@@ -2874,7 +3191,7 @@
   </script>
 
   <script>
-    // Skip Lenis smooth scrolling on mobile — native scroll is faster and uses less battery
+    // Skip Lenis smooth scrolling on mobile - native scroll is faster and uses less battery
     if (window.innerWidth > 991) {
       const lenis = new Lenis();
       lenis.on("scroll", ScrollTrigger.update);
@@ -3127,38 +3444,16 @@
         });
       }
 
-      // About expertise card clipping (from qui-sommes-nous.html)
       const aboutCards = Array.from(
         document.querySelectorAll(".about__expertise-container")
       );
-      if (aboutCards.length >= 2) {
-        const START_OFFSET_VW = 4.2;
-        let startOffsetPx = window.innerWidth * (START_OFFSET_VW / 100);
-        const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+      // Clear legacy clip-path - stacking uses sticky stack-slide wrappers (480px+)
+      aboutCards.forEach((card) => {
+        const mask = card.querySelector(".about__expertise-mask");
+        if (mask) mask.style.clipPath = "none";
+      });
 
-        const updateClip = () => {
-          aboutCards.forEach((card, i) => {
-            if (i === 0) return;
-            const prevCard = aboutCards[i - 1];
-            const prevContent = prevCard.querySelector(".about__expertise-mask");
-            if (!prevContent) return;
-            const cardRect = card.getBoundingClientRect();
-            const prevRect = prevCard.getBoundingClientRect();
-            let distance = prevRect.bottom - cardRect.top - startOffsetPx;
-            distance = clamp(distance, 0, prevRect.height);
-            prevContent.style.clipPath = "inset(0px 0px " + distance + "px 0px)";
-          });
-        };
-
-        window.addEventListener("scroll", () => requestAnimationFrame(updateClip), { passive: true });
-        window.addEventListener("resize", () => {
-          startOffsetPx = window.innerWidth * (START_OFFSET_VW / 100);
-          updateClip();
-        });
-        updateClip();
-      }
-
-      // About expertise SVG draw on scroll — cache path lengths to avoid recalculating every frame
+      // About expertise SVG draw on scroll - cache path lengths to avoid recalculating every frame
       const cardPathData = [];
       aboutCards.forEach(card => {
         const svg = card.querySelector(".about-expertise__svg svg");
@@ -3192,6 +3487,10 @@
         window.addEventListener("scroll", () => requestAnimationFrame(updateSVGDraw), { passive: true });
         window.addEventListener("resize", updateSVGDraw);
         updateSVGDraw();
+      }
+
+      if (typeof ScrollTrigger !== "undefined") {
+        ScrollTrigger.refresh();
       }
 
       // Team value items in about section (images, text)
