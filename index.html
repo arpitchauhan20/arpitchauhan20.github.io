@@ -356,10 +356,17 @@
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      overflow-x: clip;
+    html {
+      overflow-x: hidden;
       width: 100%;
+      max-width: 100%;
+    }
+
+    body {
+      overflow-x: hidden;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
     }
 
     /* Footer / #contact: fixed 100vh clips the large logo - grow with content */
@@ -665,6 +672,19 @@
 
       .track {
         transform: none !important;
+      }
+
+      /* Webflow sets schema slide to 130vw at this breakpoint — forces horizontal page scroll */
+      .h-slide.h-slide--schema {
+        flex: 0 0 100% !important;
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      .horizontal-section,
+      .horizontal-wrapper {
+        width: 100% !important;
+        max-width: 100% !important;
       }
 
       /* Touch-friendly tap targets */
