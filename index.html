@@ -369,6 +369,35 @@
       position: relative;
     }
 
+    /* Remove mobile tap flash; replace default blue ring with keyboard-only outline */
+    a,
+    button,
+    input,
+    select,
+    textarea,
+    summary {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus,
+    summary:focus {
+      outline: none;
+    }
+
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    summary:focus-visible {
+      outline: 2px solid rgba(250, 118, 54, 0.92);
+      outline-offset: 3px;
+    }
+
     /* Footer / #contact: fixed 100vh clips the large logo - grow with content */
     .footer {
       height: auto;
@@ -1040,7 +1069,8 @@
 
     <div class="nav--buttons">
       <div class="nav--button">
-        <a class="button-small w-inline-block">
+        <a class="button-small w-inline-block" href="https://wa.me/917347363524" target="_blank"
+          rel="noopener noreferrer" aria-label="Contact on WhatsApp">
           <div class="button-small__arrow left">
             <div class="div-hide">
               <div class="w-embed">
@@ -1884,7 +1914,8 @@
             <a href="#about" class="nav-mobile__link">About</a>
           </li>
           <li class="nav-mobile__list-item">
-            <a href="#contact" class="nav-mobile__link">Contact</a>
+            <a href="https://wa.me/917347363524" target="_blank" rel="noopener noreferrer"
+              class="nav-mobile__link">Contact</a>
           </li>
         </ul>
       </div>
