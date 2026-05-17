@@ -23,6 +23,18 @@
   <meta property="og:type" content="website" />
   <meta content="summary_large_image" name="twitter:card" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <script>
+    (function () {
+      var p = window.location.pathname;
+      if (!/\/index\.html$/i.test(p)) return;
+      var clean = p.replace(/\/index\.html$/i, "/");
+      history.replaceState(
+        null,
+        "",
+        clean + window.location.search + window.location.hash
+      );
+    })();
+  </script>
   <meta content="Webflow" name="generator" />
   <link href="css/webflow.css" rel="stylesheet" type="text/css" />
   <style>
@@ -1057,7 +1069,7 @@
 
 <body>
   <div data-wf--nav--variant="base" class="navigation">
-    <a href="/en" aria-current="page" class="nav--logo w-inline-block w--current">
+    <a href="/" aria-current="page" class="nav--logo w-inline-block w--current">
       <div class="logo nav__link w-embed">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 76 27" fill="currentColor">
           <path
@@ -3578,7 +3590,12 @@
     // Big ARPIT → Nav Logo smooth scroll transition
     window.addEventListener("load", () => {
       const path = window.location.pathname.replace(/\/$/, "");
-      const isHome = path === "" || path === "/" || path === "/en" || path.endsWith("index.html");
+      const isHome =
+        path === "" ||
+        path === "/" ||
+        path === "/en" ||
+        path === "/fr" ||
+        path.endsWith("index.html");
       if (!isHome) return;
 
       const bigArpit = document.querySelector(".test.w-embed");
