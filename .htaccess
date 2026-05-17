@@ -1,11 +1,1 @@
-# NOTE: GitHub Pages does not process .htaccess (static hosting only).
-# Portfolio content lives at /portfolio.html; /portfolio/ may serve portfolio/index.html → redirect.
-#
-# Apache-only helpers:
-
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-
-  # /portfolio → /portfolio/ (directory index)
-  RewriteRule ^portfolio$ portfolio/ [R=301,L]
-</IfModule>
+# NOTE: GitHub Pages does not process .htaccess.
