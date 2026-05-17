@@ -4,25 +4,255 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Redirecting…</title>
-  <script>
-    (function () {
-      var p = location.pathname;
-      var q = location.search + location.hash;
-      if (/portfolio\.html$/i.test(p)) {
-        location.replace(p.replace(/portfolio\.html$/i, "portfolio/") + q);
-        return;
-      }
-      // /portfolio (no slash) often maps to this file — send users to the real folder URL once.
-      if (/\/portfolio$/i.test(p)) {
-        location.replace(p + "/" + q);
-      }
-    })();
-  </script>
+  <title>Portfolio | Arpit Chauhan</title>
+  <meta name="description"
+    content="Live embedded previews of Deep Truck Repair, Home Ease Mortgages, Flamex, Wehere Media, Soda Skool, Hot Wheelz." />
+  <link href="css/webflow.css" rel="stylesheet" type="text/css" />
+  <link href="css/portfolio-page.css" rel="stylesheet" type="text/css" />
+  <link href="assets/favico.png" rel="shortcut icon" type="image/x-icon" />
 </head>
 
-<body>
-  <p><a href="/portfolio/">Continue to Portfolio</a></p>
+<body class="portfolio-page">
+  <header class="portfolio-page__header">
+    <span class="portfolio-page__brand">Portfolio</span>
+    <a class="portfolio-page__back uiverse-bracket-btn uiverse-bracket-btn--sm" href="/">
+      <span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" />
+        </svg>
+        Back home
+      </span>
+    </a>
+  </header>
+
+  <main class="portfolio-page__main">
+    <section id="live-preview" class="portfolio-live-section" aria-labelledby="portfolio-live-title">
+      <header class="portfolio-live__head">
+        <span class="portfolio-live__eyebrow">Live preview</span>
+        <h2 id="portfolio-live-title" class="portfolio-live__title">Use the sites here</h2>
+        <p class="portfolio-live__lead">
+          Switch tabs to load each site. Many servers block in-page embedding (you may see “refused to connect”) — that
+          cannot be overridden from here. Use <strong>Open in new tab</strong>, <strong>direct links</strong> below, or
+          <strong>external view</strong> if the iframe fails.
+        </p>
+      </header>
+      <div class="portfolio-live__toolbar" role="tablist" aria-label="Site preview">
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab is-active"
+          data-live-site="deep" id="tab-live-deep" aria-selected="true" aria-controls="portfolio-live-frame">
+          <span>Deep Truck Repair</span>
+        </button>
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab"
+          data-live-site="homeease" id="tab-live-homeease" aria-selected="false" aria-controls="portfolio-live-frame">
+          <span>Home Ease Mortgages</span>
+        </button>
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab"
+          data-live-site="flamex" id="tab-live-flamex" aria-selected="false" aria-controls="portfolio-live-frame">
+          <span>Flamex</span>
+        </button>
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab"
+          data-live-site="weheremedia" id="tab-live-weheremedia" aria-selected="false"
+          aria-controls="portfolio-live-frame">
+          <span>Wehere Media</span>
+        </button>
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab"
+          data-live-site="sodaskool" id="tab-live-sodaskool" aria-selected="false" aria-controls="portfolio-live-frame">
+          <span>Soda Skool</span>
+        </button>
+        <button type="button" role="tab" class="portfolio-live__tab uiverse-bracket-btn uiverse-bracket-btn--tab"
+          data-live-site="hotwheelz" id="tab-live-hotwheelz" aria-selected="false" aria-controls="portfolio-live-frame">
+          <span>Hot Wheelz</span>
+        </button>
+      </div>
+
+      <div class="portfolio-live__frame-shell" id="portfolio-frame-shell">
+        <iframe id="portfolio-live-frame" class="portfolio-live__iframe" title="Live website preview" src="about:blank"
+          loading="lazy" referrerpolicy="no-referrer" allow="fullscreen" credentialless></iframe>
+        <div class="portfolio-live__external-fallback" id="portfolio-external-fallback">
+          <p class="portfolio-live__external-fallback-text">
+            Embedded preview is turned off for this site (often because the host sends X-Frame-Options / CSP and the
+            browser blocks the iframe). Open it in a new tab instead.
+          </p>
+          <a id="portfolio-live-fallback-link"
+            class="portfolio-live__external-fallback-link uiverse-bracket-btn uiverse-bracket-btn--sm"
+            href="https://deepatruckrepair.com/" target="_blank" rel="noopener noreferrer"><span>Open site</span></a>
+          <button type="button" class="portfolio-live__retry-embed" id="portfolio-retry-embed">
+            Try embedded preview again
+          </button>
+        </div>
+      </div>
+
+      <div class="portfolio-live__footer-row">
+        <div class="portfolio-live__footer-actions">
+          <a id="portfolio-live-open" class="portfolio-live__open uiverse-bracket-btn uiverse-bracket-btn--sm"
+            href="https://deepatruckrepair.com/" target="_blank" rel="noopener noreferrer"><span>Open this site in a new
+              tab</span></a>
+          <button type="button" class="portfolio-live__skip-embed-btn" id="portfolio-mark-skip-embed">
+            Iframe blocked — use external view
+          </button>
+        </div>
+        <p class="portfolio-live__hint">
+          <code>no-referrer</code> on the iframe sometimes helps; refusals are decided by each website’s headers.
+        </p>
+      </div>
+
+      <nav class="portfolio-live__quick-links" id="portfolio-quick-links" aria-label="Open each site in a new tab">
+        <div class="portfolio-live__quick-links-inner"></div>
+      </nav>
+    </section>
+  </main>
+
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+      const STORAGE_KEY = "portfolioSkipEmbed";
+
+      const SITE_ORDER = [
+        "deep",
+        "homeease",
+        "flamex",
+        "weheremedia",
+        "sodaskool",
+        "hotwheelz",
+      ];
+
+      const sites = {
+        deep: { url: "https://deepatruckrepair.com/", label: "Deep Truck Repair" },
+        homeease: { url: "https://homeeasemtgs.com/", label: "Home Ease Mortgages" },
+        flamex: { url: "https://flamex.in/", label: "Flamex" },
+        weheremedia: { url: "https://weheremedia.com/", label: "Wehere Media" },
+        sodaskool: { url: "https://sodaskool.com/", label: "Soda Skool" },
+        hotwheelz: { url: "https://hotwheelz.co/", label: "Hot Wheelz" },
+      };
+
+      const root = document.getElementById("live-preview");
+      if (!root) return;
+
+      const iframe = document.getElementById("portfolio-live-frame");
+      const shell = document.getElementById("portfolio-frame-shell");
+      const openLink = document.getElementById("portfolio-live-open");
+      const fallbackLink = document.getElementById("portfolio-live-fallback-link");
+      const skipBtn = document.getElementById("portfolio-mark-skip-embed");
+      const retryBtn = document.getElementById("portfolio-retry-embed");
+      const quickInner = document.querySelector("#portfolio-quick-links .portfolio-live__quick-links-inner");
+
+      if (!iframe || !shell || !openLink || !fallbackLink || !skipBtn || !retryBtn || !quickInner) {
+        return;
+      }
+
+      const tabs = root.querySelectorAll(".portfolio-live__tab");
+
+      let current = "deep";
+      let started = false;
+
+      function getSkipSet() {
+        try {
+          const raw = sessionStorage.getItem(STORAGE_KEY);
+          const arr = raw ? JSON.parse(raw) : [];
+          return new Set(Array.isArray(arr) ? arr : []);
+        } catch {
+          return new Set();
+        }
+      }
+
+      function saveSkipSet(set) {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify([...set]));
+      }
+
+      function shouldSkipEmbed(key) {
+        return getSkipSet().has(key);
+      }
+
+      function paintTabs() {
+        tabs.forEach((btn) => {
+          const on = btn.dataset.liveSite === current;
+          btn.classList.toggle("is-active", on);
+          btn.setAttribute("aria-selected", on ? "true" : "false");
+        });
+      }
+
+      function syncLinks(url) {
+        openLink.href = url;
+        fallbackLink.href = url;
+      }
+
+      function applyShellMode(skip) {
+        shell.classList.toggle("portfolio-live__frame-shell--external-only", skip);
+      }
+
+      function go(key) {
+        const meta = sites[key];
+        if (!meta || !iframe || !openLink || !shell) return;
+        current = key;
+        syncLinks(meta.url);
+        paintTabs();
+
+        const skip = shouldSkipEmbed(key);
+        applyShellMode(skip);
+
+        if (skip) {
+          iframe.src = "about:blank";
+        } else {
+          iframe.src = meta.url;
+        }
+      }
+
+      function startIfNeeded(key) {
+        if (!started) started = true;
+        go(key);
+      }
+
+      function buildQuickLinks() {
+        const label = document.createElement("span");
+        label.className = "portfolio-live__quick-links-label";
+        label.textContent = "Open directly";
+        quickInner.appendChild(label);
+
+        SITE_ORDER.forEach((key) => {
+          const meta = sites[key];
+          if (!meta) return;
+          const a = document.createElement("a");
+          a.href = meta.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = meta.label;
+          quickInner.appendChild(a);
+        });
+      }
+
+      tabs.forEach((btn) => {
+        btn.addEventListener("click", () => startIfNeeded(btn.dataset.liveSite));
+      });
+
+      skipBtn.addEventListener("click", () => {
+        const set = getSkipSet();
+        set.add(current);
+        saveSkipSet(set);
+        go(current);
+      });
+
+      retryBtn.addEventListener("click", () => {
+        const set = getSkipSet();
+        set.delete(current);
+        saveSkipSet(set);
+        go(current);
+      });
+
+      buildQuickLinks();
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            startIfNeeded(current);
+            observer.disconnect();
+          });
+        },
+        { rootMargin: "80px 0px", threshold: 0.06 }
+      );
+      observer.observe(root);
+    });
+  </script>
 </body>
 
 </html>
