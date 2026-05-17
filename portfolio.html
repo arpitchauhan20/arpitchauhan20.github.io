@@ -9,15 +9,20 @@
     (function () {
       var p = location.pathname;
       var q = location.search + location.hash;
-      var dest = p.replace(/portfolio\.html$/i, "portfolio/");
-      location.replace(dest + q);
+      if (/portfolio\.html$/i.test(p)) {
+        location.replace(p.replace(/portfolio\.html$/i, "portfolio/") + q);
+        return;
+      }
+      // /portfolio (no slash) often maps to this file — send users to the real folder URL once.
+      if (/\/portfolio$/i.test(p)) {
+        location.replace(p + "/" + q);
+      }
     })();
   </script>
-  <meta http-equiv="refresh" content="0;url=portfolio/" />
 </head>
 
 <body>
-  <p><a href="portfolio/">Continue to Portfolio</a></p>
+  <p><a href="/portfolio/">Continue to Portfolio</a></p>
 </body>
 
 </html>
