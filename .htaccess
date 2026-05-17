@@ -1,0 +1,14 @@
+# NOTE: GitHub Pages does not process .htaccess (static hosting only).
+# Clean portfolio URL works via /portfolio/index.html → https://your-site.github.io/portfolio/
+#
+# If you host this site on Apache (cPanel, VPS, etc.), these rules help:
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Pretty URL: /portfolio (no trailing slash) → /portfolio/
+  RewriteRule ^portfolio$ portfolio/ [R=301,L]
+
+  # Legacy bookmark: portfolio.html → /portfolio/
+  RewriteRule ^portfolio\.html$ portfolio/ [R=301,L]
+</IfModule>
