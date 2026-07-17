@@ -403,6 +403,14 @@ body.portfolio-page {
 }
 
 @media screen and (max-width: 991px) {
+  .portfolio-page__header {
+    display: none;
+  }
+
+  .portfolio-live-section {
+    scroll-margin-top: 0;
+  }
+
   .portfolio-page__main {
     padding-left: calc(clamp(0.85rem, 3vw, 1.25rem) + env(safe-area-inset-left, 0px));
     padding-right: calc(clamp(0.85rem, 3vw, 1.25rem) + env(safe-area-inset-right, 0px));
