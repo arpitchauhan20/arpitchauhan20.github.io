@@ -411,18 +411,7 @@
       outline-offset: 3px;
     }
 
-    /* Mobile nav → css/mobile-nav.css (separate mob-bar + drawer) */
-
-    /* ========== DESKTOP NAV (burger unused on phone) ========== */
-    .nav-burger {
-      display: none;
-    }
-
-    @media screen and (min-width: 992px) {
-      .nav-burger {
-        display: none;
-      }
-    }
+    /* Mobile nav styles → css/mobile-nav.css */
 
     /* Footer / #contact: fixed 100vh clips the large logo - grow with content */
     .footer {
@@ -1084,80 +1073,6 @@
 
 
 <body>
-  <header class="mob-bar" id="mob-bar" aria-label="Mobile navigation">
-    <a href="/" class="mob-bar__brand" aria-label="Arpit Chauhan home">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="-1 0 76 27" fill="currentColor" aria-hidden="true">
-        <path
-          d="M12.764,0.692 L16.562,26.175 L9.777,26.175 L9.445,21.596 L7.067,21.596 L6.674,26.175 L-0.191,26.175 L3.178,0.692 L12.764,0.692 Z M9.258,17.078 Q8.755,12.746 8.251,6.389 Q7.243,13.693 6.992,17.078 L9.258,17.078 Z M17.696,0.692 L22.385,0.692 Q27.075,0.692 28.732,1.054 Q30.394,1.412 31.442,2.903 Q32.490,4.389 32.490,7.648 Q32.490,10.620 31.749,11.648 Q31.009,12.670 28.838,12.872 Q30.807,13.360 31.482,14.181 Q32.157,14.997 32.324,15.682 Q32.490,16.367 32.490,19.455 L32.490,26.175 L26.334,26.175 L26.334,17.707 Q26.334,15.657 26.012,15.174 Q25.690,14.685 24.320,14.685 L24.320,26.175 L17.696,26.175 L17.696,0.692 Z M24.320,5.049 L24.320,10.716 Q25.438,10.716 25.886,10.408 Q26.334,10.101 26.334,8.419 L26.334,7.018 Q26.334,5.804 25.901,5.427 Q25.468,5.049 24.320,5.049 Z M35.058,0.692 L41.732,0.692 Q44.437,0.692 45.893,1.115 Q47.349,1.538 48.079,2.344 Q48.815,3.145 49.072,4.288 Q49.334,5.427 49.334,7.819 L49.334,10.041 Q49.334,12.479 48.830,13.597 Q48.326,14.715 46.981,15.315 Q45.636,15.909 43.460,15.909 L41.682,15.909 L41.682,26.175 L35.058,26.175 L35.058,0.692 Z M41.682,5.049 L41.682,11.537 Q41.964,11.552 42.171,11.552 Q43.082,11.552 43.435,11.104 Q43.793,10.655 43.793,9.235 L43.793,7.144 Q43.793,5.835 43.380,5.442 Q42.972,5.049 41.682,5.049 Z M57.864,0.692 L57.864,26.175 L51.240,26.175 L51.240,0.692 L57.864,0.692 Z M73.876,0.692 L73.876,5.789 L69.937,5.789 L69.937,26.175 L63.313,26.175 L63.313,5.789 L59.394,5.789 L59.394,0.692 L73.876,0.692 Z"
-          fill="currentColor" />
-      </svg>
-    </a>
-    <button type="button" class="mob-bar__menu" id="mob-menu-toggle" aria-expanded="false"
-      aria-controls="mob-drawer">
-      <span class="mob-bar__menu-text">Menu</span>
-      <span class="mob-bar__menu-icon" aria-hidden="true"><span></span><span></span></span>
-    </button>
-  </header>
-
-  <div class="mob-drawer" id="mob-drawer" aria-hidden="true" role="dialog" aria-modal="true"
-    aria-label="Site menu">
-    <div class="mob-drawer__backdrop" aria-hidden="true"></div>
-    <div class="mob-drawer__panel">
-      <div class="mob-drawer__head">
-        <p class="mob-drawer__label">Explore</p>
-        <button type="button" class="mob-drawer__close" id="mob-menu-close" aria-label="Close menu">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-            <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-          </svg>
-          Close
-        </button>
-      </div>
-      <nav class="mob-drawer__nav" aria-label="Primary">
-        <a href="#offers" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">01</span>
-          <span class="mob-drawer__title">Services</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#approach" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">02</span>
-          <span class="mob-drawer__title">Approach</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#expertise" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">03</span>
-          <span class="mob-drawer__title">Expertise</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#projects" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">04</span>
-          <span class="mob-drawer__title">Projects</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#about" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">05</span>
-          <span class="mob-drawer__title">About</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-        <a href="#contact" class="mob-drawer__link" data-mob-link>
-          <span class="mob-drawer__index">06</span>
-          <span class="mob-drawer__title">Contact</span>
-          <span class="mob-drawer__arrow" aria-hidden="true">→</span>
-        </a>
-      </nav>
-      <div class="mob-drawer__foot">
-        <a href="portfolio.html" class="mob-drawer__pill" data-mob-link>Portfolio</a>
-        <a href="#contact" class="mob-drawer__pill mob-drawer__pill--accent" data-mob-link>Get in touch</a>
-        <a href="https://wa.me/917347363524" class="mob-drawer__pill mob-drawer__pill--outline" target="_blank"
-          rel="noopener noreferrer" data-mob-link>WhatsApp</a>
-        <div class="mob-drawer__meta">
-          <a href="mailto:arpitchauhan2028@gmail.com">arpitchauhan2028@gmail.com</a>
-          <a href="https://www.linkedin.com/in/arpitchauhan2002/" target="_blank"
-            rel="noopener noreferrer">LinkedIn</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div data-wf--nav--variant="base" class="navigation">
     <a href="/" aria-current="page" class="nav--logo w-inline-block w--current">
       <div class="logo nav__link w-embed">
@@ -1572,6 +1487,47 @@
           </script>
         </div>
       </div>
+    </div>
+    <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false"
+      aria-controls="nav-mobile-panel">
+      <span class="nav-burger__icon" aria-hidden="true">
+        <span class="nav-burger__bar nav-burger__bar--top"></span>
+        <span class="nav-burger__bar nav-burger__bar--mid"></span>
+        <span class="nav-burger__bar nav-burger__bar--bot"></span>
+      </span>
+    </button>
+  </div>
+  <div class="nav-mobile-panel" id="nav-mobile-panel">
+    <div class="nav-mobile-panel__header">
+      <button type="button" class="nav-mobile-close" aria-label="Close menu">
+        <span class="nav-mobile-close__icon" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="div-block-9">
+      <ul role="list" class="nav-mobile__list-link">
+        <li class="nav-mobile__list-item">
+          <a href="#offers" class="nav-mobile__link">Services</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="#approach" class="nav-mobile__link">Approach</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="#expertise" class="nav-mobile__link">Expertise</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="#projects" class="nav-mobile__link">Projects</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="#about" class="nav-mobile__link">About</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="#contact" class="nav-mobile__link">Contact</a>
+        </li>
+        <li class="nav-mobile__list-item">
+          <a href="https://wa.me/917347363524" target="_blank" rel="noopener noreferrer"
+            class="nav-mobile__link">WhatsApp</a>
+        </li>
+      </ul>
     </div>
   </div>
   <div data-us-project="tnAhw4e67txvvqrBP7oz" class="background"></div>
