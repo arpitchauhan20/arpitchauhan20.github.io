@@ -426,6 +426,7 @@
       align-items: center;
       justify-content: center;
       -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
 
     .nav-burger__icon {
@@ -475,6 +476,11 @@
     .navigation.menu-open {
       transform: translateY(0) !important;
       z-index: 10001 !important;
+    }
+
+    .navigation.menu-open > .nav-burger {
+      position: relative;
+      z-index: 10002;
     }
 
     .navigation.is-on-white:not(.menu-open) .nav-burger {
@@ -533,6 +539,62 @@
         display: flex;
         flex-flow: column;
         gap: 1rem;
+        position: relative;
+        z-index: 3;
+        flex: 0 0 auto;
+        pointer-events: auto;
+      }
+
+      .nav-mobile-close {
+        display: none;
+        position: absolute;
+        top: calc(4vw + env(safe-area-inset-top, 0px));
+        right: calc(4.975vw + env(safe-area-inset-right, 0px));
+        z-index: 5;
+        border: none;
+        padding: 10px;
+        margin: 0;
+        min-width: 44px;
+        min-height: 44px;
+        background: none;
+        cursor: pointer;
+        color: #000;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .nav-mobile-close__icon {
+        position: relative;
+        display: block;
+        width: 18px;
+        height: 18px;
+        margin: 0 auto;
+        pointer-events: none;
+      }
+
+      .nav-mobile-close__icon::before,
+      .nav-mobile-close__icon::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        border-radius: 1px;
+        background: currentColor;
+      }
+
+      .nav-mobile-close__icon::before {
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      .nav-mobile-close__icon::after {
+        transform: translateY(-50%) rotate(-45deg);
+      }
+
+      .nav-mobile-panel.is-open .nav-mobile-close {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .nav-mobile-panel .bot.clipping-text.nav,
@@ -540,6 +602,17 @@
         height: auto !important;
         min-height: 0 !important;
         max-height: none !important;
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .nav-mobile-panel .bot.clipping-text.nav a,
+      .nav-mobile-panel .bot.clipping-text.nav .link-block,
+      .nav-mobile__submenu .bot.clipping-text.nav a,
+      .nav-mobile__submenu .bot.clipping-text.nav .link-block {
+        pointer-events: auto;
       }
 
       .nav-mobile-panel .nav-mobile__list-link {
@@ -565,6 +638,12 @@
         opacity: 1 !important;
         visibility: visible !important;
         transform: none !important;
+        position: relative;
+        z-index: 4;
+        pointer-events: auto;
+        cursor: pointer;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
       }
 
       .nav-mobile-panel .clipping-text,
@@ -595,20 +674,21 @@
         width: 100%;
         height: 100dvh;
         background: #fff;
-        z-index: 9999;
+        z-index: 9990;
         padding: calc(14vw + env(safe-area-inset-top, 0px)) 4.975vw 6vw;
         overflow-y: auto;
         transform: translateX(100%);
         transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
           visibility 0.4s;
         visibility: hidden;
-        pointer-events: none;
+        pointer-events: none !important;
       }
 
       .nav-mobile__submenu.is-open {
         transform: translateX(0);
         visibility: visible;
-        pointer-events: auto;
+        pointer-events: auto !important;
+        z-index: 10000;
       }
 
       .nav-mobile__submenu .nav-submobile__list-link {
@@ -1490,9 +1570,10 @@
         <div class="w-embed w-script">
           <style>
             body.no-scroll {
-              overflow: hidden;
+              overflow: hidden !important;
               width: 100%;
               height: 100%;
+              touch-action: auto;
             }
 
             body.no-scroll .nav-mobile-panel,
@@ -1705,154 +1786,6 @@
               });
 
               setTimeout(updateNavColors, 50);
-
-              // ========== BURGER + PANEL MOBILE ==========
-              const burger = document.querySelector(".navigation > .nav-burger");
-              const panel = document.getElementById("nav-mobile-panel");
-              const subMenuOffres = document.querySelector(
-                ".nav-mobile__submenu-offres"
-              );
-              const subMenuExpertise = document.querySelector(
-                ".nav-mobile__submenu-expertise"
-              );
-              const subMenus = [subMenuOffres, subMenuExpertise].filter(Boolean);
-
-              if (burger && panel) {
-                let isOpen = false;
-
-                function scrollToSection(hash) {
-                  if (!hash || hash === "#") return;
-                  const id = hash.replace(/^#/, "");
-                  const el = document.getElementById(id);
-                  if (!el) return;
-                  const navH = nav.offsetHeight || 0;
-                  const top =
-                    el.getBoundingClientRect().top +
-                    window.pageYOffset -
-                    navH -
-                    8;
-                  window.scrollTo({
-                    top: Math.max(0, top),
-                    behavior: "smooth",
-                  });
-                  history.replaceState(null, "", "#" + id);
-                }
-
-                function setMenuOpen(open) {
-                  isOpen = open;
-
-                  panel.classList.toggle("is-open", open);
-                  burger.classList.toggle("is-open", open);
-                  nav.classList.toggle("menu-open", open);
-                  burger.setAttribute("aria-expanded", open ? "true" : "false");
-                  burger.setAttribute(
-                    "aria-label",
-                    open ? "Close menu" : "Open menu"
-                  );
-                  document.body.classList.toggle("no-scroll", open);
-
-                  if (open) {
-                    nav.style.transform = "translateY(0)";
-                    navHidden = false;
-                    if (burgerEl) gsap.set(burgerEl, { color: "#000" });
-                  } else {
-                    subMenus.forEach((sm) => sm.classList.remove("is-open"));
-                    panel.classList.remove("has-submenu-open");
-                    if (burgerEl) gsap.set(burgerEl, { clearProps: "color" });
-                    updateNavColors();
-                  }
-                }
-
-                function openSubMenu(sub) {
-                  if (!sub) return;
-                  subMenus.forEach((s) => {
-                    if (s !== sub) s.classList.remove("is-open");
-                  });
-                  panel.classList.add("has-submenu-open");
-                  sub.classList.add("is-open");
-                }
-
-                function closeSubMenu(sub) {
-                  if (!sub) return;
-                  sub.classList.remove("is-open");
-                  panel.classList.remove("has-submenu-open");
-                }
-
-                function handleMenuNavigation(e, link) {
-                  const href = link.getAttribute("href") || "";
-                  const isSubmenuTrigger =
-                    link.classList.contains("nav-mobile__link-offres") ||
-                    link.classList.contains("nav-mobile__link-expertise");
-
-                  if (isSubmenuTrigger) {
-                    e.preventDefault();
-                    if (link.classList.contains("nav-mobile__link-offres")) {
-                      openSubMenu(subMenuOffres);
-                    } else {
-                      openSubMenu(subMenuExpertise);
-                    }
-                    return;
-                  }
-
-                  e.preventDefault();
-                  const isExternal =
-                    href.startsWith("http") || href.startsWith("mailto:");
-                  const openInNewTab =
-                    link.target === "_blank" || link.hasAttribute("target");
-
-                  setMenuOpen(false);
-
-                  window.setTimeout(() => {
-                    if (isExternal) {
-                      if (openInNewTab) {
-                        window.open(href, "_blank", "noopener,noreferrer");
-                      } else {
-                        window.location.href = href;
-                      }
-                      return;
-                    }
-                    if (href.startsWith("#")) {
-                      scrollToSection(href);
-                    }
-                  }, 320);
-                }
-
-                function toggleMenu(e) {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setMenuOpen(!isOpen);
-                }
-
-                let lastMenuToggle = 0;
-                burger.addEventListener("click", (e) => {
-                  const now = Date.now();
-                  if (now - lastMenuToggle < 400) return;
-                  lastMenuToggle = now;
-                  toggleMenu(e);
-                });
-
-                function bindMenuNav(root) {
-                  root.addEventListener("click", (e) => {
-                    const link = e.target.closest(
-                      ".nav-mobile__link, .nav-submobile__link"
-                    );
-                    if (!link || !root.contains(link)) return;
-                    handleMenuNavigation(e, link);
-                  });
-                }
-
-                bindMenuNav(panel);
-                subMenus.forEach(bindMenuNav);
-
-                document
-                  .querySelectorAll(".nav-mobile__submenu-back")
-                  .forEach((btn) => {
-                    btn.addEventListener("click", (e) => {
-                      e.preventDefault();
-                      closeSubMenu(btn.closest(".nav-mobile__submenu"));
-                    });
-                  });
-              }
             });
           </script>
         </div>
@@ -1868,6 +1801,9 @@
     </button>
   </div>
   <div class="nav-mobile-panel" id="nav-mobile-panel">
+      <button type="button" class="nav-mobile-close" aria-label="Close menu">
+        <span class="nav-mobile-close__icon" aria-hidden="true"></span>
+      </button>
       <div class="div-block-9">
         <ul role="list" class="nav-mobile__list-link">
           <li class="nav-mobile__list-item">
@@ -3645,6 +3581,168 @@
         },
       });
     });
+  </script>
+
+  <script>
+    (function () {
+      const nav = document.querySelector(".navigation");
+      const burger = document.querySelector(".navigation > .nav-burger");
+      const panel = document.getElementById("nav-mobile-panel");
+      const closeBtn = panel?.querySelector(".nav-mobile-close");
+      const subMenuOffres = document.querySelector(".nav-mobile__submenu-offres");
+      const subMenuExpertise = document.querySelector(".nav-mobile__submenu-expertise");
+      const subMenus = [subMenuOffres, subMenuExpertise].filter(Boolean);
+
+      if (!burger || !panel || !nav) return;
+
+      const mobileMq = window.matchMedia("(max-width: 991px)");
+
+      function menuIsOpen() {
+        return panel.classList.contains("is-open");
+      }
+
+      function scrollToSection(hash) {
+        if (!hash || hash === "#") return;
+        const id = hash.replace(/^#/, "");
+        const el = document.getElementById(id);
+        if (!el) return;
+        const navH = nav.offsetHeight || 0;
+        const top =
+          el.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+        window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
+        history.replaceState(null, "", "#" + id);
+      }
+
+      function setMenuOpen(open) {
+        panel.classList.toggle("is-open", open);
+        burger.classList.toggle("is-open", open);
+        nav.classList.toggle("menu-open", open);
+        burger.setAttribute("aria-expanded", open ? "true" : "false");
+        burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        document.body.classList.toggle("no-scroll", open);
+
+        if (open) {
+          nav.style.transform = "translateY(0)";
+        } else {
+          subMenus.forEach((sm) => sm.classList.remove("is-open"));
+          panel.classList.remove("has-submenu-open");
+          window.dispatchEvent(new Event("scroll"));
+        }
+      }
+
+      function openSubMenu(sub) {
+        if (!sub) return;
+        subMenus.forEach((s) => {
+          if (s !== sub) s.classList.remove("is-open");
+        });
+        panel.classList.add("has-submenu-open");
+        sub.classList.add("is-open");
+      }
+
+      function closeSubMenu(sub) {
+        if (!sub) return;
+        sub.classList.remove("is-open");
+        panel.classList.remove("has-submenu-open");
+      }
+
+      function handleMenuNavigation(e, link) {
+        if (!mobileMq.matches) return;
+
+        const href = link.getAttribute("href") || "";
+        const isSubmenuTrigger =
+          link.classList.contains("nav-mobile__link-offres") ||
+          link.classList.contains("nav-mobile__link-expertise");
+
+        if (isSubmenuTrigger) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (link.classList.contains("nav-mobile__link-offres")) {
+            openSubMenu(subMenuOffres);
+          } else {
+            openSubMenu(subMenuExpertise);
+          }
+          return;
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const isExternal =
+          href.startsWith("http") || href.startsWith("mailto:");
+        const openInNewTab =
+          link.target === "_blank" || link.hasAttribute("target");
+
+        setMenuOpen(false);
+
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            if (isExternal) {
+              if (openInNewTab) {
+                window.open(href, "_blank", "noopener,noreferrer");
+              } else {
+                window.location.href = href;
+              }
+              return;
+            }
+            if (href.startsWith("#")) {
+              scrollToSection(href);
+            }
+          });
+        });
+      }
+
+      function onBurgerTap(e) {
+        if (!mobileMq.matches) return;
+        e.preventDefault();
+        e.stopPropagation();
+        setMenuOpen(!menuIsOpen());
+      }
+
+      function onCloseTap(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        setMenuOpen(false);
+      }
+
+      burger.addEventListener("click", onBurgerTap);
+      closeBtn?.addEventListener("click", onCloseTap);
+
+      panel.addEventListener(
+        "click",
+        (e) => {
+          const link = e.target.closest(".nav-mobile__link");
+          if (!link || !panel.contains(link)) return;
+          handleMenuNavigation(e, link);
+        },
+        true
+      );
+
+      subMenus.forEach((sub) => {
+        sub.addEventListener(
+          "click",
+          (e) => {
+            const link = e.target.closest(".nav-submobile__link");
+            if (!link || !sub.contains(link)) return;
+            handleMenuNavigation(e, link);
+          },
+          true
+        );
+      });
+
+      document.querySelectorAll(".nav-mobile__submenu-back").forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSubMenu(btn.closest(".nav-mobile__submenu"));
+        });
+      });
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && menuIsOpen()) {
+          setMenuOpen(false);
+        }
+      });
+    })();
   </script>
 </body>
 
