@@ -717,6 +717,23 @@
       }
     }
 
+    /* Phone: no fixed header or burger menu */
+    @media screen and (max-width: 991px) {
+      .navigation,
+      .nav-mobile-panel,
+      .nav-mobile__submenu {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+
+      body.no-scroll {
+        overflow: auto !important;
+        height: auto !important;
+        width: auto !important;
+      }
+    }
+
     /* Footer / #contact: fixed 100vh clips the large logo - grow with content */
     .footer {
       height: auto;
