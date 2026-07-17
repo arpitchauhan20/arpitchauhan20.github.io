@@ -1580,12 +1580,11 @@
               overflow: hidden !important;
               width: 100%;
               height: 100%;
-              touch-action: auto;
+              touch-action: manipulation;
             }
 
-            body.no-scroll .nav-mobile-panel,
-            body.no-scroll .nav-mobile__submenu {
-              overscroll-behavior: contain;
+            body.no-scroll .nav-mobile-panel.is-open {
+              touch-action: manipulation;
             }
 
             .w-locales-list a.w--current {
