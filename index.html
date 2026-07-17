@@ -476,11 +476,18 @@
     .navigation.menu-open {
       transform: translateY(0) !important;
       z-index: 10001 !important;
+      pointer-events: none !important;
     }
 
     .navigation.menu-open > .nav-burger {
-      visibility: hidden;
-      pointer-events: none;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      position: relative;
+      z-index: 10003;
+    }
+
+    .navigation.menu-open > .nav--logo {
+      pointer-events: auto !important;
     }
 
     .navigation.is-on-white:not(.menu-open) .nav-burger {
@@ -529,6 +536,7 @@
         transform: translateY(0);
         visibility: visible;
         pointer-events: auto;
+        z-index: 10002 !important;
       }
 
       .nav-mobile-panel.has-submenu-open {
@@ -562,10 +570,10 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        position: relative;
-        top: auto;
-        right: auto;
-        z-index: 6;
+        position: fixed;
+        top: calc(4.975vw + env(safe-area-inset-top, 0px));
+        right: calc(4.975vw + env(safe-area-inset-right, 0px));
+        z-index: 10004;
         border: none;
         padding: 10px;
         margin: 0;

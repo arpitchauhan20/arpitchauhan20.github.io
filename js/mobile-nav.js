@@ -11,9 +11,15 @@
   }
 
   const mobileMq = window.matchMedia("(max-width: 991px)");
+  let lastTouchAt = 0;
 
   function menuIsOpen() {
     return panel.classList.contains("is-open");
+  }
+
+  function shouldIgnoreClick(e) {
+    if (e.type !== "click") return false;
+    return Date.now() - lastTouchAt < 600;
   }
 
   function scrollToSection(hash) {
@@ -72,33 +78,52 @@
       if (href.startsWith("#")) {
         scrollToSection(href);
       }
-    }, 280);
+    }, 200);
   }
 
-  panel.querySelectorAll(".nav-mobile__link").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      if (!mobileMq.matches) return;
+  function handlePanelTap(e) {
+    if (!mobileMq.matches) return;
+    if (shouldIgnoreClick(e)) return;
+
+    if (e.type === "touchend") {
+      lastTouchAt = Date.now();
+    }
+
+    const link = e.target.closest(".nav-mobile__link");
+    if (link && panel.contains(link)) {
       e.preventDefault();
       followLink(link);
-    });
-  });
+      return;
+    }
 
-  burger.addEventListener("click", (e) => {
+    if (e.target.closest(".nav-mobile-close")) {
+      e.preventDefault();
+      setMenuOpen(false);
+      return;
+    }
+
+    if (e.target === panel) {
+      setMenuOpen(false);
+    }
+  }
+
+  function handleBurgerTap(e) {
     if (!mobileMq.matches) return;
+    if (shouldIgnoreClick(e)) return;
+
+    if (e.type === "touchend") {
+      lastTouchAt = Date.now();
+    }
+
     e.preventDefault();
     e.stopPropagation();
     setMenuOpen(!menuIsOpen());
-  });
+  }
 
-  closeBtn?.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setMenuOpen(false);
-  });
-
-  panel.addEventListener("click", (e) => {
-    if (e.target === panel) setMenuOpen(false);
-  });
+  panel.addEventListener("touchend", handlePanelTap, { passive: false });
+  panel.addEventListener("click", handlePanelTap);
+  burger.addEventListener("touchend", handleBurgerTap, { passive: false });
+  burger.addEventListener("click", handleBurgerTap);
 
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && menuIsOpen()) setMenuOpen(false);

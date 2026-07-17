@@ -6,7 +6,13 @@
     overflow: hidden !important;
     height: 100%;
     width: 100%;
-    touch-action: none;
+    touch-action: manipulation;
+  }
+
+  body.no-scroll .nav-mobile-panel.is-open,
+  body.no-scroll .nav-mobile-panel.is-open * {
+    touch-action: manipulation;
+    pointer-events: auto;
   }
 
   /* Prevent horizontal page scroll */
