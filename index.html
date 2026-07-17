@@ -22,7 +22,7 @@
     property="twitter:description" />
   <meta property="og:type" content="website" />
   <meta content="summary_large_image" name="twitter:card" />
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
+  <meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport" />
   <script>
     (function () {
       var p = window.location.pathname;
@@ -37,6 +37,7 @@
   </script>
   <meta content="Webflow" name="generator" />
   <link href="css/webflow.css" rel="stylesheet" type="text/css" />
+  <link href="css/responsive.css" rel="stylesheet" type="text/css" />
   <style>
     html.w-mod-js:not(.w-mod-ix3) :is(.last-section, .last-section-mask, .h-line, .manifesto, .expertise-split, .split-tag, .load-split, .logo-footer, .value-item__line, .value-divider, .value-icon svg, .value-text h4, .value-text p, [data-wf-target*='["68f77e4ac7ca6bd68b326cb4","6efb697d-d0ab-36b3-30f7-aca4aff8ec9f"]'], [data-wf-target*='["68f77e4ac7ca6bd68b326cb4","f795206b-cfea-47c2-42e7-3d1c4abaf727"]']) {
       visibility: hidden !important;
@@ -232,7 +233,7 @@
       Stacking scroll (480px+): each slide wrapper is taller than one viewport; the
       inner container is sticky at the same offset so slide 2 scrolls up over slide 1.
     */
-    @media screen and (min-width: 480px) {
+    @media screen and (min-width: 992px) {
       .about__expertise-section {
         grid-column-gap: 0 !important;
         grid-row-gap: 0 !important;
@@ -2186,7 +2187,7 @@
 
             if (!section || !wrapper || !track) return;
 
-            const isMobile = window.matchMedia("(max-width: 479px)").matches;
+            const isMobile = window.matchMedia("(max-width: 991px)").matches;
 
             // ===== SPLIT TEXT =====
             const splitElems = document.querySelectorAll(".split-timeline");
