@@ -6,10 +6,6 @@
 
   if (!burger || !panel || !nav) return;
 
-  if (panel.parentElement !== document.body) {
-    document.body.appendChild(panel);
-  }
-
   const mobileMq = window.matchMedia("(max-width: 991px)");
   let lastTouchAt = 0;
 
