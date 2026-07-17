@@ -420,7 +420,7 @@
       cursor: pointer;
       color: #fff;
       position: relative;
-      z-index: 10000;
+      z-index: 2;
       min-width: 44px;
       min-height: 44px;
       align-items: center;
@@ -428,19 +428,53 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    .nav-burger svg {
+    .nav-burger__icon {
+      position: relative;
       display: block;
       width: 18px;
-      height: 18px;
+      height: 14px;
       pointer-events: none;
     }
 
-    .nav-burger svg polyline {
-      stroke: currentColor;
+    .nav-burger__bar {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      border-radius: 1px;
+      background: currentColor;
+      transition: transform 0.28s ease, opacity 0.2s ease, top 0.28s ease;
+    }
+
+    .nav-burger__bar--top {
+      top: 0;
+    }
+
+    .nav-burger__bar--mid {
+      top: 6px;
+    }
+
+    .nav-burger__bar--bot {
+      top: 12px;
+    }
+
+    .nav-burger.is-open .nav-burger__bar--top {
+      top: 6px;
+      transform: rotate(45deg);
+    }
+
+    .nav-burger.is-open .nav-burger__bar--mid {
+      opacity: 0;
+    }
+
+    .nav-burger.is-open .nav-burger__bar--bot {
+      top: 6px;
+      transform: rotate(-45deg);
     }
 
     .navigation.menu-open {
       transform: translateY(0) !important;
+      z-index: 10001 !important;
     }
 
     .navigation.is-on-white:not(.menu-open) .nav-burger {
@@ -449,10 +483,6 @@
 
     .navigation.menu-open .nav-burger {
       color: #000 !important;
-    }
-
-    .navigation.menu-open .nav-burger svg polyline {
-      stroke: #000 !important;
     }
 
     .navigation.menu-open .nav--logo .logo svg,
@@ -1523,9 +1553,6 @@
                 ".navigation .button-small__arrow svg *"
               );
               const burgerEl = document.querySelector(".navigation > .nav-burger");
-              const burgerPolylines = document.querySelectorAll(
-                ".navigation > .nav-burger svg polyline"
-              );
 
               const path = window.location.pathname.replace(/\/$/, ""); // enlève le trailing slash
               const isHome =
@@ -1609,21 +1636,18 @@
                   gsap.to(arrowSvgs, { fill: "#fff", ...animDur });
                   gsap.to(btnBlocks, { backgroundColor: "rgba(255,255,255,0.1)", ...animDur });
                   if (burgerEl) gsap.to(burgerEl, { color: "#fff", ...animDur });
-                  gsap.to(burgerPolylines, { stroke: "#fff", ...animDur });
                 } else if (onWhite) {
                   gsap.to(navLinks, { color: "#000", ...animDur });
                   gsap.to(logoSvgs, { fill: "#000", ...animDur });
                   gsap.to(arrowSvgs, { fill: "#000", ...animDur });
                   gsap.to(btnBlocks, { backgroundColor: "rgba(0,0,0,0.08)", ...animDur });
                   if (burgerEl) gsap.to(burgerEl, { color: "#000", ...animDur });
-                  gsap.to(burgerPolylines, { stroke: "#000", ...animDur });
                 } else {
                   gsap.to(navLinks, { color: "#fff", ...animDur });
                   gsap.to(logoSvgs, { fill: "#fff", ...animDur });
                   gsap.to(arrowSvgs, { fill: "#fff", ...animDur });
                   gsap.to(btnBlocks, { backgroundColor: "rgba(255,255,255,0.1)", ...animDur });
                   if (burgerEl) gsap.to(burgerEl, { color: "#fff", ...animDur });
-                  gsap.to(burgerPolylines, { stroke: "#fff", ...animDur });
                 }
               }
 
@@ -1696,48 +1720,27 @@
               if (burger && panel) {
                 let isOpen = false;
 
-                const bottomPolyline = burger.querySelector(
-                  "#globalnav-menutrigger-bread-bottom"
-                );
-                const topPolyline = burger.querySelector(
-                  "#globalnav-menutrigger-bread-top"
-                );
-                const bottomAnims = bottomPolyline
-                  ? bottomPolyline.querySelectorAll("animate")
-                  : [];
-                const topAnims = topPolyline
-                  ? topPolyline.querySelectorAll("animate")
-                  : [];
-
                 function setMenuOpen(open) {
                   isOpen = open;
                   panel.classList.toggle("is-open", open);
                   burger.classList.toggle("is-open", open);
                   nav.classList.toggle("menu-open", open);
                   burger.setAttribute("aria-expanded", open ? "true" : "false");
+                  burger.setAttribute(
+                    "aria-label",
+                    open ? "Close menu" : "Open menu"
+                  );
                   document.body.classList.toggle("no-scroll", open);
 
                   if (open) {
                     nav.style.transform = "translateY(0)";
                     navHidden = false;
-                    gsap.set(burgerPolylines, { stroke: "#000" });
                     if (burgerEl) gsap.set(burgerEl, { color: "#000" });
                   } else {
                     subMenus.forEach((sm) => sm.classList.remove("is-open"));
                     panel.classList.remove("has-submenu-open");
-                    gsap.set(burgerPolylines, { clearProps: "stroke" });
                     if (burgerEl) gsap.set(burgerEl, { clearProps: "color" });
                     updateNavColors();
-                  }
-
-                  if (bottomAnims.length >= 2 && topAnims.length >= 2) {
-                    if (open) {
-                      bottomAnims[0].beginElement();
-                      topAnims[0].beginElement();
-                    } else {
-                      bottomAnims[1].beginElement();
-                      topAnims[1].beginElement();
-                    }
                   }
                 }
 
@@ -1808,28 +1811,13 @@
         </div>
       </div>
     </div>
-    <button type="button" class="nav-burger" aria-label="Toggle menu" aria-expanded="false"
+    <button type="button" class="nav-burger" aria-label="Open menu" aria-expanded="false"
       aria-controls="nav-mobile-panel">
-      <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-        <polyline id="globalnav-menutrigger-bread-bottom" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" points="2 12, 16 12">
-          <animate attributeName="points" keyTimes="0;0.5;1" dur="0.24s" begin="indefinite" fill="freeze"
-            calcMode="spline" keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
-            values=" 2 12, 16 12; 2 9, 16 9; 3.5 15, 15 3.5"></animate>
-          <animate attributeName="points" keyTimes="0;0.5;1" dur="0.24s" begin="indefinite" fill="freeze"
-            calcMode="spline" keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
-            values=" 3.5 15, 15 3.5; 2 9, 16 9; 2 12, 16 12"></animate>
-        </polyline>
-        <polyline id="globalnav-menutrigger-bread-top" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" points="2 5, 16 5">
-          <animate attributeName="points" keyTimes="0;0.5;1" dur="0.24s" begin="indefinite" fill="freeze"
-            calcMode="spline" keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
-            values=" 2 5, 16 5; 2 9, 16 9; 3.5 3.5, 15 15"></animate>
-          <animate attributeName="points" keyTimes="0;0.5;1" dur="0.24s" begin="indefinite" fill="freeze"
-            calcMode="spline" keySplines="0.42, 0, 1, 1;0, 0, 0.58, 1"
-            values=" 3.5 3.5, 15 15; 2 9, 16 9; 2 5, 16 5"></animate>
-        </polyline>
-      </svg>
+      <span class="nav-burger__icon" aria-hidden="true">
+        <span class="nav-burger__bar nav-burger__bar--top"></span>
+        <span class="nav-burger__bar nav-burger__bar--mid"></span>
+        <span class="nav-burger__bar nav-burger__bar--bot"></span>
+      </span>
     </button>
   </div>
   <div class="nav-mobile-panel" id="nav-mobile-panel">
