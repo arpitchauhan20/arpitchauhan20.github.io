@@ -504,23 +504,25 @@
       .nav-mobile-panel {
         display: flex !important;
         flex-flow: column;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: stretch;
         position: fixed;
         inset: 0;
         width: 100%;
         height: 100dvh;
         background: #fff;
-        z-index: 9998;
+        z-index: 10000;
         padding: calc(14vw + env(safe-area-inset-top, 0px)) 4.975vw
           calc(6vw + env(safe-area-inset-bottom, 0px));
         overflow-y: auto;
+        overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
         transform: translateY(-100%);
         transition: transform 0.45s cubic-bezier(0.77, 0, 0.175, 1),
           visibility 0.45s;
         visibility: hidden;
         pointer-events: none;
+        isolation: isolate;
       }
 
       .nav-mobile-panel.is-open {
@@ -597,6 +599,12 @@
         justify-content: center;
       }
 
+      /* Footer logo inside menu steals taps on phone — hide it */
+      .nav-mobile-panel > .bot.clipping-text.nav,
+      .nav-mobile__submenu > .submenu__block > .bot.clipping-text.nav {
+        display: none !important;
+      }
+
       .nav-mobile-panel .bot.clipping-text.nav,
       .nav-mobile__submenu .bot.clipping-text.nav {
         height: auto !important;
@@ -667,28 +675,26 @@
       }
 
       .nav-mobile__submenu {
-        display: flex !important;
+        display: none !important;
         flex-flow: column;
         position: fixed;
         inset: 0;
         width: 100%;
         height: 100dvh;
         background: #fff;
-        z-index: 9990;
+        z-index: 10001;
         padding: calc(14vw + env(safe-area-inset-top, 0px)) 4.975vw 6vw;
         overflow-y: auto;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1),
-          visibility 0.4s;
+        overflow-x: hidden;
         visibility: hidden;
         pointer-events: none !important;
+        isolation: isolate;
       }
 
       .nav-mobile__submenu.is-open {
-        transform: translateX(0);
+        display: flex !important;
         visibility: visible;
         pointer-events: auto !important;
-        z-index: 10000;
       }
 
       .nav-mobile__submenu .nav-submobile__list-link {
@@ -714,23 +720,6 @@
       .nav-mobile-panel,
       .nav-mobile__submenu {
         display: none !important;
-      }
-    }
-
-    /* Phone: no fixed header or burger menu */
-    @media screen and (max-width: 991px) {
-      .navigation,
-      .nav-mobile-panel,
-      .nav-mobile__submenu {
-        display: none !important;
-        visibility: hidden !important;
-        pointer-events: none !important;
-      }
-
-      body.no-scroll {
-        overflow: auto !important;
-        height: auto !important;
-        width: auto !important;
       }
     }
 
@@ -1911,6 +1900,12 @@
           <li class="nav-submobile__list-item">
             <a href="#offers" class="nav-submobile__link">Full-Stack PHP Web Applications</a>
           </li>
+          <li class="nav-submobile__list-item">
+            <a href="#about" class="nav-submobile__link">React Web Applications</a>
+          </li>
+          <li class="nav-submobile__list-item">
+            <a href="#about" class="nav-submobile__link">Technical SEO &amp; Performance</a>
+          </li>
         </ul>
         <div class="bot clipping-text nav">
           <div class="footer-bot-info">
@@ -1988,6 +1983,12 @@
               <a href="#expertise" class="nav-submobile__link">SEO & Web Accessibility</a>
             </div>
             <div role="listitem" class="nav-submobile__list-item w-dyn-item">
+              <a href="#about" class="nav-submobile__link">React & Component Architecture</a>
+            </div>
+            <div role="listitem" class="nav-submobile__list-item w-dyn-item">
+              <a href="#about" class="nav-submobile__link">Technical SEO & Core Web Vitals</a>
+            </div>
+            <div role="listitem" class="nav-submobile__list-item w-dyn-item">
               <a href="#expertise" class="nav-submobile__link">Progressive Web Apps</a>
             </div>
             <div role="listitem" class="nav-submobile__list-item w-dyn-item">
@@ -2054,9 +2055,9 @@
           Crafting Digital Experiences that Inspire.
         </p>
         <p class="claim-s" style="opacity: 0.8; max-width: 600px;">
-          Web Developer • Frontend Engineer • PHP Developer<br /><span style="opacity: 0.7;">Building fast, beautiful,
+          Web Developer • Frontend Engineer • React • SEO<br /><span style="opacity: 0.7;">Building fast, beautiful,
             and
-            responsive websites using HTML, CSS, JS, and PHP.</span>
+            responsive websites using HTML, CSS, JS, PHP, and React—with technical SEO baked in.</span>
         </p>
       </div>
       <div data-wf-target='[[["68f77e4ac7ca6bd68b326cb4","6efb697d-d0ab-36b3-30f7-aca4aff8ec9f"],[]]]'
@@ -2081,7 +2082,7 @@
           </div>
           <div id="w-node-f795206b-cfea-47c2-42e7-3d1c4abaf737-8b326cb4">
             <p class="manifesto">
-              Great websites don't just look good; they perform. I combine deep expertise in HTML, CSS, JavaScript, and PHP with clean architecture and thoughtful design to build digital experiences that engage users and drive business growth.
+              Great websites don't just look good; they perform. I combine deep expertise in HTML, CSS, JavaScript, PHP, and React with clean architecture, technical SEO, and thoughtful design to build digital experiences that rank, engage users, and drive business growth.
             </p>
           </div>
         </div>
@@ -2470,7 +2471,7 @@
           <div class="nav-tag color-black split-tag">Philosophy</div>
           <p class="manifesto clipping-text">
             I am the creative and technical extension of your team,<br />turning
-            ideas into fast, beautiful, and functional web experiences.
+            ideas into fast, beautiful, and functional web experiences—with React for interactive UIs and SEO for lasting visibility.
           </p>
         </div>
       </div>
@@ -2543,6 +2544,42 @@
                 <h4>Clean<br />Architecture</h4>
                 <p>
                   Complex logic doesn't mean messy code. I write modular, well-documented, and maintainable codebases that teams can confidently build upon.
+                </p>
+              </div>
+              <div class="value-item__line top"></div>
+              <div class="value-item__line bot"></div>
+            </div>
+            <div class="value-divider"></div>
+            <div class="value-item top-align">
+              <div class="value-icon color-orange w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58" fill="none">
+                  <path
+                    d="M28.8 0C44.713 0 57.6 12.887 57.6 28.8C57.6 44.713 44.713 57.6 28.8 57.6C12.887 57.6 0 44.713 0 28.8C0 12.887 12.887 0 28.8 0ZM16.2 14.4L28.8 42.4L41.4 14.4H34.8L28.8 28.8L22.8 14.4H16.2Z"
+                    fill="currentColor" />
+                </svg>
+              </div>
+              <div class="value-text">
+                <h4>React<br />Development</h4>
+                <p>
+                  I build component-driven interfaces with React—dynamic dashboards, single-page apps, and reusable UI systems that stay fast and maintainable as your product grows.
+                </p>
+              </div>
+              <div class="value-item__line top"></div>
+              <div class="value-item__line bot"></div>
+            </div>
+            <div class="value-divider"></div>
+            <div class="value-item top-align">
+              <div class="value-icon color-orange w-embed">
+                <svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58" fill="none">
+                  <path
+                    d="M28.8 0C44.713 0 57.6 12.887 57.6 28.8C57.6 44.713 44.713 57.6 28.8 57.6C12.887 57.6 0 44.713 0 28.8C0 12.887 12.887 0 28.8 0ZM12 28.8H45.6M28.8 12V45.6"
+                    stroke="currentColor" stroke-width="2.5" />
+                </svg>
+              </div>
+              <div class="value-text">
+                <h4>SEO &amp;<br />Visibility</h4>
+                <p>
+                  From semantic HTML and Core Web Vitals to meta structure, sitemaps, and on-page optimization—I make sure your site is discoverable, indexable, and built to rank.
                 </p>
               </div>
               <div class="value-item__line top"></div>
@@ -2990,8 +3027,7 @@
                     </p>
                   </div>
                   <p class="about-expertise__text">
-                    I act as your technical co-pilot:<br />I challenge limits with modern code, build robust frameworks, and
-                    ensure that every line of code transforms the business.
+                    I act as your technical co-pilot:<br />I challenge limits with modern code—including React for rich frontends and technical SEO for search visibility—and ensure that every line of code transforms the business.
                   </p>
                 </div>
               </div>
@@ -3022,9 +3058,7 @@
                     </p>
                   </div>
                   <p class="about-expertise__text">
-                    You can't build great products by just staring at wireframes. Experiences are built through understanding real-world user interactions.<br /><br />Iterating on designs quickly, optimizing frontend performance, and delivering
-                    scalable
-                    web apps: this is the key to creating value and continuously improving digital presence.
+                    You can't build great products by just staring at wireframes. Experiences are built through understanding real-world user interactions.<br /><br />Iterating on designs quickly, optimizing frontend performance, shipping React-powered interfaces, and applying SEO best practices: this is the key to creating value and continuously improving digital presence.
                   </p>
                 </div>
               </div>
@@ -3612,6 +3646,9 @@
 
       if (!burger || !panel || !nav) return;
 
+      document.body.appendChild(panel);
+      subMenus.forEach((sub) => document.body.appendChild(sub));
+
       const mobileMq = window.matchMedia("(max-width: 991px)");
 
       function menuIsOpen() {
@@ -3623,9 +3660,9 @@
         const id = hash.replace(/^#/, "");
         const el = document.getElementById(id);
         if (!el) return;
-        const navH = nav.offsetHeight || 0;
+        const navH = mobileMq.matches ? nav.offsetHeight || 0 : 0;
         const top =
-          el.getBoundingClientRect().top + window.pageYOffset - navH - 8;
+          el.getBoundingClientRect().top + window.pageYOffset - navH - 12;
         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
         history.replaceState(null, "", "#" + id);
       }
@@ -3637,6 +3674,7 @@
         burger.setAttribute("aria-expanded", open ? "true" : "false");
         burger.setAttribute("aria-label", open ? "Close menu" : "Open menu");
         document.body.classList.toggle("no-scroll", open);
+        document.documentElement.classList.toggle("no-scroll", open);
 
         if (open) {
           nav.style.transform = "translateY(0)";
@@ -3652,27 +3690,47 @@
         subMenus.forEach((s) => {
           if (s !== sub) s.classList.remove("is-open");
         });
-        panel.classList.add("has-submenu-open");
         sub.classList.add("is-open");
       }
 
       function closeSubMenu(sub) {
         if (!sub) return;
         sub.classList.remove("is-open");
-        panel.classList.remove("has-submenu-open");
       }
 
-      function handleMenuNavigation(e, link) {
+      function followLink(link) {
+        const href = link.getAttribute("href") || "";
+        const isExternal =
+          href.startsWith("http") || href.startsWith("mailto:");
+        const openInNewTab =
+          link.target === "_blank" || link.hasAttribute("target");
+
+        setMenuOpen(false);
+
+        window.setTimeout(() => {
+          if (isExternal) {
+            if (openInNewTab) {
+              window.open(href, "_blank", "noopener,noreferrer");
+            } else {
+              window.location.href = href;
+            }
+            return;
+          }
+          if (href.startsWith("#")) {
+            scrollToSection(href);
+          }
+        }, 50);
+      }
+
+      function onNavLinkActivate(e, link) {
         if (!mobileMq.matches) return;
 
-        const href = link.getAttribute("href") || "";
         const isSubmenuTrigger =
           link.classList.contains("nav-mobile__link-offres") ||
           link.classList.contains("nav-mobile__link-expertise");
 
         if (isSubmenuTrigger) {
           e.preventDefault();
-          e.stopPropagation();
           if (link.classList.contains("nav-mobile__link-offres")) {
             openSubMenu(subMenuOffres);
           } else {
@@ -3682,68 +3740,29 @@
         }
 
         e.preventDefault();
-        e.stopPropagation();
-
-        const isExternal =
-          href.startsWith("http") || href.startsWith("mailto:");
-        const openInNewTab =
-          link.target === "_blank" || link.hasAttribute("target");
-
-        setMenuOpen(false);
-
-        requestAnimationFrame(() => {
-          requestAnimationFrame(() => {
-            if (isExternal) {
-              if (openInNewTab) {
-                window.open(href, "_blank", "noopener,noreferrer");
-              } else {
-                window.location.href = href;
-              }
-              return;
-            }
-            if (href.startsWith("#")) {
-              scrollToSection(href);
-            }
-          });
-        });
+        followLink(link);
       }
 
-      function onBurgerTap(e) {
+      function bindNavLink(link) {
+        link.addEventListener("click", (e) => onNavLinkActivate(e, link));
+      }
+
+      panel.querySelectorAll(".nav-mobile__link").forEach(bindNavLink);
+      subMenus.forEach((sub) => {
+        sub.querySelectorAll(".nav-submobile__link").forEach(bindNavLink);
+      });
+
+      burger.addEventListener("click", (e) => {
         if (!mobileMq.matches) return;
         e.preventDefault();
         e.stopPropagation();
         setMenuOpen(!menuIsOpen());
-      }
+      });
 
-      function onCloseTap(e) {
+      closeBtn?.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
         setMenuOpen(false);
-      }
-
-      burger.addEventListener("click", onBurgerTap);
-      closeBtn?.addEventListener("click", onCloseTap);
-
-      panel.addEventListener(
-        "click",
-        (e) => {
-          const link = e.target.closest(".nav-mobile__link");
-          if (!link || !panel.contains(link)) return;
-          handleMenuNavigation(e, link);
-        },
-        true
-      );
-
-      subMenus.forEach((sub) => {
-        sub.addEventListener(
-          "click",
-          (e) => {
-            const link = e.target.closest(".nav-submobile__link");
-            if (!link || !sub.contains(link)) return;
-            handleMenuNavigation(e, link);
-          },
-          true
-        );
       });
 
       document.querySelectorAll(".nav-mobile__submenu-back").forEach((btn) => {
@@ -3755,9 +3774,7 @@
       });
 
       document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && menuIsOpen()) {
-          setMenuOpen(false);
-        }
+        if (e.key === "Escape" && menuIsOpen()) setMenuOpen(false);
       });
     })();
   </script>

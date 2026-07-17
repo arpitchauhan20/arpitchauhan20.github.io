@@ -72,12 +72,6 @@ body.portfolio-page {
   color: rgba(255, 255, 255, 0.55);
 }
 
-@media screen and (max-width: 991px) {
-  .portfolio-page__header {
-    display: none;
-  }
-}
-
 /* Bracket button — dark page: masks match background so border reads cleanly */
 .uiverse-bracket-btn {
   position: relative;
