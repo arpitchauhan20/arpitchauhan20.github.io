@@ -1491,8 +1491,8 @@
           <style>
             body.no-scroll {
               overflow: hidden;
+              width: 100%;
               height: 100%;
-              touch-action: none;
             }
 
             body.no-scroll .nav-mobile-panel,
@@ -1720,8 +1720,27 @@
               if (burger && panel) {
                 let isOpen = false;
 
+                function scrollToSection(hash) {
+                  if (!hash || hash === "#") return;
+                  const id = hash.replace(/^#/, "");
+                  const el = document.getElementById(id);
+                  if (!el) return;
+                  const navH = nav.offsetHeight || 0;
+                  const top =
+                    el.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navH -
+                    8;
+                  window.scrollTo({
+                    top: Math.max(0, top),
+                    behavior: "smooth",
+                  });
+                  history.replaceState(null, "", "#" + id);
+                }
+
                 function setMenuOpen(open) {
                   isOpen = open;
+
                   panel.classList.toggle("is-open", open);
                   burger.classList.toggle("is-open", open);
                   nav.classList.toggle("menu-open", open);
@@ -1759,25 +1778,71 @@
                   panel.classList.remove("has-submenu-open");
                 }
 
-                burger.addEventListener("click", (e) => {
+                function handleMenuNavigation(e, link) {
+                  const href = link.getAttribute("href") || "";
+                  const isSubmenuTrigger =
+                    link.classList.contains("nav-mobile__link-offres") ||
+                    link.classList.contains("nav-mobile__link-expertise");
+
+                  if (isSubmenuTrigger) {
+                    e.preventDefault();
+                    if (link.classList.contains("nav-mobile__link-offres")) {
+                      openSubMenu(subMenuOffres);
+                    } else {
+                      openSubMenu(subMenuExpertise);
+                    }
+                    return;
+                  }
+
+                  e.preventDefault();
+                  const isExternal =
+                    href.startsWith("http") || href.startsWith("mailto:");
+                  const openInNewTab =
+                    link.target === "_blank" || link.hasAttribute("target");
+
+                  setMenuOpen(false);
+
+                  window.setTimeout(() => {
+                    if (isExternal) {
+                      if (openInNewTab) {
+                        window.open(href, "_blank", "noopener,noreferrer");
+                      } else {
+                        window.location.href = href;
+                      }
+                      return;
+                    }
+                    if (href.startsWith("#")) {
+                      scrollToSection(href);
+                    }
+                  }, 320);
+                }
+
+                function toggleMenu(e) {
                   e.preventDefault();
                   e.stopPropagation();
                   setMenuOpen(!isOpen);
+                }
+
+                let lastMenuToggle = 0;
+                burger.addEventListener("click", (e) => {
+                  const now = Date.now();
+                  if (now - lastMenuToggle < 400) return;
+                  lastMenuToggle = now;
+                  toggleMenu(e);
                 });
 
-                panel
-                  .querySelector(".nav-mobile__link-offres")
-                  ?.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    openSubMenu(subMenuOffres);
+                function bindMenuNav(root) {
+                  root.addEventListener("click", (e) => {
+                    const link = e.target.closest(
+                      ".nav-mobile__link, .nav-submobile__link"
+                    );
+                    if (!link || !root.contains(link)) return;
+                    handleMenuNavigation(e, link);
                   });
+                }
 
-                panel
-                  .querySelector(".nav-mobile__link-expertise")
-                  ?.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    openSubMenu(subMenuExpertise);
-                  });
+                bindMenuNav(panel);
+                subMenus.forEach(bindMenuNav);
 
                 document
                   .querySelectorAll(".nav-mobile__submenu-back")
@@ -1787,24 +1852,6 @@
                       closeSubMenu(btn.closest(".nav-mobile__submenu"));
                     });
                   });
-
-                panel
-                  .querySelectorAll(
-                    ".nav-mobile__link:not(.nav-mobile__link-offres):not(.nav-mobile__link-expertise)"
-                  )
-                  .forEach((link) => {
-                    link.addEventListener("click", () => setMenuOpen(false));
-                  });
-
-                subMenus.forEach((sub) => {
-                  sub.querySelectorAll(".nav-submobile__link").forEach((link) => {
-                    link.addEventListener("click", () => {
-                      subMenus.forEach((s) => s.classList.remove("is-open"));
-                      panel.classList.remove("has-submenu-open");
-                      setMenuOpen(false);
-                    });
-                  });
-                });
               }
             });
           </script>
@@ -2073,7 +2120,7 @@
     <div class="container before-horizontal" id="offers">
       <div class="h-line"></div>
       <div class="card-container">
-        <div class="w-layout-grid grid-container no-padd">
+        <div class="w-layout-grid grid-container no-padd" id="approach">
           <div>
             <div class="div-hide">
               <div class="nav-tag split-tag">Approach</div>
@@ -2464,7 +2511,7 @@
         </script>
       </div>
     </div>
-    <div class="last-section bg-white" id="values">
+    <div class="last-section bg-white" id="about">
       <div class="w-layout-grid grid-container">
         <div id="w-node-f795206b-cfea-47c2-42e7-3d1c4abaf7b3-8b326cb4" class="section__intro-text">
           <div class="nav-tag color-black split-tag">Philosophy</div>
@@ -2965,7 +3012,7 @@
           </div>
         </div>
       </div>
-      <div class="about__expertise-section">
+      <div class="about__expertise-section" id="expertise">
         <div class="about__expertise-stack-slide">
           <div class="about__expertise-container">
             <div class="about__expertise-mask">
