@@ -480,8 +480,8 @@
     }
 
     .navigation.menu-open > .nav-burger {
-      position: relative;
-      z-index: 10002;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     .navigation.is-on-white:not(.menu-open) .nav-burger {
@@ -536,6 +536,17 @@
         transform: translateY(0) translateX(-8%);
       }
 
+      .nav-mobile-panel__header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 0 0 auto;
+        position: relative;
+        z-index: 6;
+        min-height: 44px;
+        margin-bottom: 0.5rem;
+      }
+
       .nav-mobile-panel .div-block-9 {
         max-height: none !important;
         overflow: visible !important;
@@ -549,11 +560,13 @@
       }
 
       .nav-mobile-close {
-        display: none;
-        position: absolute;
-        top: calc(4vw + env(safe-area-inset-top, 0px));
-        right: calc(4.975vw + env(safe-area-inset-right, 0px));
-        z-index: 5;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        top: auto;
+        right: auto;
+        z-index: 6;
         border: none;
         padding: 10px;
         margin: 0;
@@ -563,6 +576,7 @@
         cursor: pointer;
         color: #000;
         -webkit-tap-highlight-color: transparent;
+        touch-action: manipulation;
       }
 
       .nav-mobile-close__icon {
@@ -594,13 +608,7 @@
         transform: translateY(-50%) rotate(-45deg);
       }
 
-      .nav-mobile-panel.is-open .nav-mobile-close {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Footer logo inside menu steals taps on phone — hide it */
+      /* Footer block removed from panel markup — keep hidden if present in submenus */
       .nav-mobile-panel > .bot.clipping-text.nav,
       .nav-mobile__submenu > .submenu__block > .bot.clipping-text.nav {
         display: none !important;
@@ -675,27 +683,11 @@
         mix-blend-mode: normal !important;
       }
 
-      .nav-mobile__submenu {
-        display: none !important;
-        flex-flow: column;
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100dvh;
-        background: #fff;
-        z-index: 10001;
-        padding: calc(14vw + env(safe-area-inset-top, 0px)) 4.975vw 6vw;
-        overflow-y: auto;
-        overflow-x: hidden;
-        visibility: hidden;
-        pointer-events: none !important;
-        isolation: isolate;
-      }
-
+      .nav-mobile__submenu,
       .nav-mobile__submenu.is-open {
-        display: flex !important;
-        visibility: visible;
-        pointer-events: auto !important;
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
       }
 
       .nav-mobile__submenu .nav-submobile__list-link {
@@ -1808,20 +1800,21 @@
     </button>
   </div>
   <div class="nav-mobile-panel" id="nav-mobile-panel">
-      <button type="button" class="nav-mobile-close" aria-label="Close menu">
-        <span class="nav-mobile-close__icon" aria-hidden="true"></span>
-      </button>
+      <div class="nav-mobile-panel__header">
+        <button type="button" class="nav-mobile-close" aria-label="Close menu">
+          <span class="nav-mobile-close__icon" aria-hidden="true"></span>
+        </button>
+      </div>
       <div class="div-block-9">
         <ul role="list" class="nav-mobile__list-link">
           <li class="nav-mobile__list-item">
-            <a data-submenu-target="offres" href="#offers" class="nav-mobile__link nav-mobile__link-offres">Services</a>
+            <a href="#offers" class="nav-mobile__link">Services</a>
           </li>
           <li class="nav-mobile__list-item">
             <a href="#approach" class="nav-mobile__link">Approach</a>
           </li>
           <li class="nav-mobile__list-item">
-            <a data-submenu-target="expertise" href="#expertise"
-              class="nav-mobile__link nav-mobile__link-expertise">Expertise</a>
+            <a href="#expertise" class="nav-mobile__link">Expertise</a>
           </li>
           <li class="nav-mobile__list-item">
             <a href="#projects" class="nav-mobile__link">Projects</a>
@@ -1834,53 +1827,6 @@
               class="nav-mobile__link">Contact</a>
           </li>
         </ul>
-      </div>
-      <div class="bot clipping-text nav">
-        <div class="footer-bot-info">
-          <p class="claim-s max-w-footer split">
-            Arpit Chauhan<br />Web Developer &amp; Frontend Engineer.
-          </p>
-          <div class="logo-mobile w-embed">
-            <!-- old logo removed -->
-
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 0 492 178" class="logo-mobile-svg">
-              <path
-                d="M84.15,4.56 L109.19,172.56 L64.46,172.56 L62.27,142.37 L46.59,142.37 L44.00,172.56 L-1.26,172.56 L20.95,4.56 L84.15,4.56 Z M61.04,112.59 Q57.72,84.03 54.39,42.12 Q47.75,90.27 46.09,112.59 L61.04,112.59 Z M116.66,4.56 L147.58,4.56 Q178.49,4.56 189.42,6.95 Q200.38,9.31 207.29,19.14 Q214.19,28.93 214.19,50.42 Q214.19,70.01 209.31,76.79 Q204.43,83.53 190.12,84.86 Q203.10,88.08 207.55,93.49 Q212.00,98.87 213.10,103.39 Q214.19,107.90 214.19,128.26 L214.19,172.56 L173.61,172.56 L173.61,116.74 Q173.61,103.22 171.49,100.03 Q169.36,96.81 160.33,96.81 L160.33,172.56 L116.66,172.56 L116.66,4.56 Z M160.33,33.29 L160.33,70.64 Q167.70,70.64 170.66,68.62 Q173.61,66.59 173.61,55.50 L173.61,46.27 Q173.61,38.27 170.76,35.78 Q167.90,33.29 160.33,33.29 Z M231.12,4.56 L275.13,4.56 Q292.96,4.56 302.56,7.35 Q312.15,10.14 316.97,15.45 Q321.82,20.73 323.51,28.27 Q325.24,35.78 325.24,51.55 L325.24,66.19 Q325.24,82.27 321.92,89.64 Q318.59,97.01 309.73,100.96 Q300.86,104.88 286.52,104.88 L274.79,104.88 L274.79,172.56 L231.12,172.56 L231.12,4.56 Z M274.79,33.29 L274.79,76.06 Q276.65,76.16 278.01,76.16 Q284.03,76.16 286.35,73.20 Q288.71,70.25 288.71,60.88 L288.71,47.10 Q288.71,38.47 285.98,35.88 Q283.29,33.29 274.79,33.29 Z M381.47,4.56 L381.47,172.56 L337.81,172.56 L337.81,4.56 L381.47,4.56 Z M487.03,4.56 L487.03,38.17 L461.07,38.17 L461.07,172.56 L417.40,172.56 L417.40,38.17 L391.56,38.17 L391.56,4.56 L487.03,4.56 Z"
-                fill="white" />
-            </svg>
-          </div>
-        </div>
-        <div class="h-line-mobile on-mobile clipping-item"></div>
-        <div class="right right-align">
-          <div class="footer-mobile">
-            <a data-w-id="77b08b28-eab5-8f18-46ff-4198c787495d" href="arpitchauhan2028@gmail.com"
-              class="link-block w-inline-block">
-              <div class="div-hide">
-                <div class="nav-tag color-white">Linkedin</div>
-                <div class="nav-tag hide color-white">Linkedin</div>
-              </div>
-            </a><a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874956" href="arpitchauhan2028@gmail.com"
-              class="link-block w-inline-block">
-              <div class="div-hide">
-                <div class="nav-tag color-white">arpitchauhan2028@gmail.com</div>
-                <div class="nav-tag hide color-white">
-                  arpitchauhan2028@gmail.com<br />
-                </div>
-              </div>
-            </a>
-          </div>
-          <a data-w-id="77b08b28-eab5-8f18-46ff-4198c7874963" href="https://www.linkedin.com/in/arpitchauhan2002"
-            class="link-block w-inline-block">
-            <div class="div-hide">
-              <div class="nav-tag color-white">
-                Website by Arpit Chauhan
-              </div>
-              <div class="nav-tag hide color-white">
-                Website by Arpit Chauhan
-              </div>
-            </div>
-          </a>
-        </div>
       </div>
     </div>
     <div class="nav-mobile__submenu nav-mobile__submenu-offres">
@@ -3641,14 +3587,10 @@
       const burger = document.querySelector(".navigation > .nav-burger");
       const panel = document.getElementById("nav-mobile-panel");
       const closeBtn = panel?.querySelector(".nav-mobile-close");
-      const subMenuOffres = document.querySelector(".nav-mobile__submenu-offres");
-      const subMenuExpertise = document.querySelector(".nav-mobile__submenu-expertise");
-      const subMenus = [subMenuOffres, subMenuExpertise].filter(Boolean);
 
       if (!burger || !panel || !nav) return;
 
       document.body.appendChild(panel);
-      subMenus.forEach((sub) => document.body.appendChild(sub));
 
       const mobileMq = window.matchMedia("(max-width: 991px)");
 
@@ -3661,9 +3603,12 @@
         const id = hash.replace(/^#/, "");
         const el = document.getElementById(id);
         if (!el) return;
-        const navH = mobileMq.matches ? nav.offsetHeight || 0 : 0;
+
         const top =
-          el.getBoundingClientRect().top + window.pageYOffset - navH - 12;
+          el.getBoundingClientRect().top +
+          window.pageYOffset -
+          12;
+
         window.scrollTo({ top: Math.max(0, top), behavior: "smooth" });
         history.replaceState(null, "", "#" + id);
       }
@@ -3680,27 +3625,14 @@
         if (open) {
           nav.style.transform = "translateY(0)";
         } else {
-          subMenus.forEach((sm) => sm.classList.remove("is-open"));
           panel.classList.remove("has-submenu-open");
+          nav.style.removeProperty("transform");
           window.dispatchEvent(new Event("scroll"));
         }
       }
 
-      function openSubMenu(sub) {
-        if (!sub) return;
-        subMenus.forEach((s) => {
-          if (s !== sub) s.classList.remove("is-open");
-        });
-        sub.classList.add("is-open");
-      }
-
-      function closeSubMenu(sub) {
-        if (!sub) return;
-        sub.classList.remove("is-open");
-      }
-
       function followLink(link) {
-        const href = link.getAttribute("href") || "";
+        const href = (link.getAttribute("href") || "").trim();
         const isExternal =
           href.startsWith("http") || href.startsWith("mailto:");
         const openInNewTab =
@@ -3720,37 +3652,15 @@
           if (href.startsWith("#")) {
             scrollToSection(href);
           }
-        }, 50);
+        }, 300);
       }
 
-      function onNavLinkActivate(e, link) {
-        if (!mobileMq.matches) return;
-
-        const isSubmenuTrigger =
-          link.classList.contains("nav-mobile__link-offres") ||
-          link.classList.contains("nav-mobile__link-expertise");
-
-        if (isSubmenuTrigger) {
+      panel.querySelectorAll(".nav-mobile__link").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          if (!mobileMq.matches) return;
           e.preventDefault();
-          if (link.classList.contains("nav-mobile__link-offres")) {
-            openSubMenu(subMenuOffres);
-          } else {
-            openSubMenu(subMenuExpertise);
-          }
-          return;
-        }
-
-        e.preventDefault();
-        followLink(link);
-      }
-
-      function bindNavLink(link) {
-        link.addEventListener("click", (e) => onNavLinkActivate(e, link));
-      }
-
-      panel.querySelectorAll(".nav-mobile__link").forEach(bindNavLink);
-      subMenus.forEach((sub) => {
-        sub.querySelectorAll(".nav-submobile__link").forEach(bindNavLink);
+          followLink(link);
+        });
       });
 
       burger.addEventListener("click", (e) => {
@@ -3766,12 +3676,8 @@
         setMenuOpen(false);
       });
 
-      document.querySelectorAll(".nav-mobile__submenu-back").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          closeSubMenu(btn.closest(".nav-mobile__submenu"));
-        });
+      panel.addEventListener("click", (e) => {
+        if (e.target === panel) setMenuOpen(false);
       });
 
       document.addEventListener("keydown", (e) => {

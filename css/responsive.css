@@ -2,20 +2,11 @@
 
 @media screen and (max-width: 991px) {
 
-  /* Hide fixed header + mobile menu on tablet and phone */
-  .navigation,
-  .nav-mobile-panel,
-  .nav-mobile__submenu {
-    display: none !important;
-    visibility: hidden !important;
-    pointer-events: none !important;
-  }
-
-  body.no-scroll,
-  html.no-scroll {
-    overflow: auto !important;
-    height: auto !important;
-    width: auto !important;
+  body.no-scroll {
+    overflow: hidden !important;
+    height: 100%;
+    width: 100%;
+    touch-action: none;
   }
 
   /* Prevent horizontal page scroll */
